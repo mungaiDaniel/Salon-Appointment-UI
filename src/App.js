@@ -9,7 +9,11 @@ import {Button, Alert, Row, Col} from 'react-bootstrap';
 import 'font-awesome/css/font-awesome.min.css';
 import React, {useState} from 'react';
 function App() {
-  const [currentForm, setCurrentForm] = useState('register')
+  const [currentForm, setCurrentForm] = useState('register');
+
+  const toggleForm = (formName) => {
+    setCurrentForm(formName);
+  }
 
   return (
     <div className="App">
@@ -18,7 +22,7 @@ function App() {
 
       <Row className='landing p-lg-0 pt-lg-5'>
         <Col>{
-          currentForm === "login" ? <Login /> : <Register />
+          currentForm === "login" ? <Login onFormSwitch={toggleForm}/> : <Register onFormSwitch={toggleForm}/>
         }</Col>
         <Col> <Pict/></Col>
       </Row>
