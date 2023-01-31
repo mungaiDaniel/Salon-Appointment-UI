@@ -3,7 +3,7 @@ import { Navbar, Nav, NavDropdown, Container } from 'react-bootstrap';
 const Header = () => {
   return (
     <div>
-    <Navbar collapseOnSelect expand="lg" bg="white" >
+    <Navbar collapseOnSelect expand="lg" bg="light" className='m-1 p-1'>
         <Container>
 
             <Navbar.Brand href="#home">Salon Gerente</Navbar.Brand>

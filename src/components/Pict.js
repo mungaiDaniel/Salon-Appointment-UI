@@ -1,9 +1,9 @@
-import bg from './Img/bg.jpg'
+import salon2 from './Img/salon2.jpg'
 import {Image} from "react-bootstrap";
 const Pict = () => {
   return (
     <div>
-      <Image src={bg} thumbnail style={{border:'none'}} />
+      <Image src={salon2} thumbnail style={{border:'none'}} />
     </div>
   )
 }
