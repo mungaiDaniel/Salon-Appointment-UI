@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const Register = () => {
+const Register = (props) => {
   return (
     <div>
             <br/>
@@ -25,6 +25,8 @@ const Register = () => {
                 </Form.Group>
                 <Button className='bg-primary pt-2 m-2' type="submit">Submit</Button>
             </Form>
+            <br/>
+            <Button onClick={() => props.onFormSwitch('login')} className='bg-secondary text-light border-0'>Already have an account? Login here</Button>
     </div>
   )
 }

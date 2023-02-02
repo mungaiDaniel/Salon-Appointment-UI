@@ -1,7 +1,7 @@
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 
-const Login = () => {
+const Login = (props) => {
   return (
 
 <div className='container'>
@@ -19,7 +19,7 @@ const Login = () => {
                 <Button className='bg-primary pt-2 m-2' type="submit">Submit</Button>
             </Form>
             <br/>
-            <Button className='bg-secondary text-light border-0'>Don't have an account? Register here</Button>
+            <Button onClick={() => props.onFormSwitch('register')} className='bg-secondary text-light border-0'>Don't have an account? Register here</Button>
 </div>
   
   )
