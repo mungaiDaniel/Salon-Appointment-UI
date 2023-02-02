@@ -14,19 +14,19 @@ const Location = () => {
               paddingRight: "11%"
             }}
           >
-            Located in the hottest area of 78744, the new Monica Hair is here to
-            create an authentic and delightful experience for its Austin
+            Located in the hottest area of Waiyaki Way, the new Salon Gerente Hair is here to
+            create an authentic and delightful experience for its Nairobi
             Clientele.
           </p>
           <div className="row align-items-center justify-content-between">
             <div className='col-md'> <img src={map1} alt="" className='img-fluid'/></div>
             <div className="col-md-6 col-sm-6 loc_address-section" style={{paddingLeft:'8%',paddingTop:'2%'}}>
               <h5 className="loc_address-text-2" style={{color: '#00c5b1'}}>Location</h5>
-              <div className="loc_address">5710 Peppertree Pkwy #B</div>
-              <div className="loc_address">Austin, Texas 78744</div>
-              <div className="loc_address">512-825-2633</div>
+              <div className="loc_address">00605 Waiyaki Way Uthiru</div>
+              <div className="loc_address">Nairobi, Kenya</div>
+              <div className="loc_address">+254-727-980-611</div>
               <div className="loc_address">
-                Email: monica.arroyo1319@gmail.com
+                Email: Danitomonga@gmail.com
               </div>
               <button type="button" class="btn btn-success mt-3" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
   Book Your Appointment Now
