@@ -7,6 +7,9 @@ import Footer from './components/Footer';
 import Home from './components/Home';
 import Register from './components/Register';
 import Services from './components/Services';
+import Stylist from './components/Stylist';
+import Location from './components/Location';
+import Testimonies from './components/Testiomonies';
 import {Button, Alert, Row, Col} from 'react-bootstrap';
 import 'font-awesome/css/font-awesome.min.css';
 import React, {useState} from 'react';
@@ -34,12 +37,9 @@ function App() {
       </Row>
       }
       <Services />
-      
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
+      <Stylist />
+      <Location />
+      < Testimonies />
       <Footer />
     </div>
   );
