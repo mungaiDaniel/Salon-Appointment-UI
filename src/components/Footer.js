@@ -152,14 +152,7 @@ const Footer = () => {
         backgroundColor: "#212121" 
       }}
     >
-      © 2018 Copyright: Monica Arroyo inspired by 
-      <a
-        href="https://urbanhair-atx.com" target="_blank"rel="noopener noreferrer"
-        style={{ fontSize: ".75rem" }}
-      >
-        {" "}
-        Urban Hair Atx
-      </a>
+      <h5>© 2023 Copyright : Salon Gerente</h5>
     </div>
   </footer>
   );
