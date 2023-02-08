@@ -1,9 +1,10 @@
 import 'font-awesome/css/font-awesome.min.css';
+import './styles/Footer.scss';
 
 const Footer = () => {
   return (
     <footer
-    className="page-footer font-small p-5 bg-dark text-white text-center position-relative p-lg-0 pt-lg-5"
+    className="footer page-footer font-small p-5 bg-dark text-white text-center position-relative p-lg-0 pt-lg-5"
     style={{ backgroundColor: "#D6CFD0" }}
   >
     <div style={{ backgroundColor: "#37474F" }}>
@@ -67,7 +68,7 @@ const Footer = () => {
             className="accent-2 mb-4 mt-0 d-inline-block mx-auto"
             style={{ width: "60px", backgroundColor: '#37474F'}}
           />
-          <p style={{fontSize: '.75rem'}}>
+          <p style={{fontSize: '.85rem'}}>
             Our mission is to provide our clients with results based on our clients needs and the advice of our professional hair stylist. Thank you to all of our clients who continue to support us and in making us one of the leading Hair Salons in the Austin Area.
           </p>
         </div>

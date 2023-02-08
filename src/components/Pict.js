@@ -1,4 +1,4 @@
-import salon2 from '../Img/salon2.jpg'
+import salon2 from './Img/salon2.jpg'
 import {Image} from "react-bootstrap";
 
 const Pict = () => {

@@ -1,10 +1,9 @@
 import { Button } from 'react-bootstrap';
-import './Location.scss';
-import map1 from '../Img/map1.jpg'
+import './styles/Location.scss';
+import map1 from './Img/map1.jpg'
 const Location = () => {
   return (
-    <div className='container-fluid text-light p-3' style={{backgroundColor: '#00c5b1'
-    }}>
+    <div className='container-fluid text-light p-5 bg-secondary' id='location'>
         <div className='text-light'>
           <h2 className="location-text-1"style={{textAlign:'center', marginTop:'20px', color:'#FFFF00', fontStyle:"italic"}}>Get In Touch</h2>
           <p
@@ -28,9 +27,6 @@ const Location = () => {
               <div className="loc_address">
                 Email: Danitomonga@gmail.com
               </div>
-              <button type="button" class="btn btn-success mt-3" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
-  Book Your Appointment Now
-</button>
 
             </div>
 
