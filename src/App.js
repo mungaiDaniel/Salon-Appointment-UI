@@ -1,18 +1,14 @@
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
-import Header from './components/Header';
-import Login from './components/Login';
-import Pict from './components/Pict';
+import NavBar from './components/NavBar';
+import Login from './components/auth/Login';
 import Footer from './components/Footer';
-import Home from './components/Home';
-import Register from './components/Register';
-import Services from './components/Services';
-import Stylist from './components/Stylist';
-import Location from './components/Location';
-import Testimonies from './components/Testiomonies';
-import {Button, Alert, Row, Col} from 'react-bootstrap';
+import MainContent from './components/MainContent';
+import Register from './components/auth/Register';
 import 'font-awesome/css/font-awesome.min.css';
-import React, {useState} from 'react';
+import React, { Suspense, useState} from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import TestimonyPage from './components/addTestimonies/TestimonyPage';
 
 function App() {
   const [currentForm, setCurrentForm] = useState('register');
@@ -21,28 +17,38 @@ function App() {
   const toggleForm = (formName) => {
     setCurrentForm(formName);
   }
+  
 
   return (
     <div className="App">
+      <BrowserRouter>
+      
+      <NavBar />
+      <Routes>
+        <Route exact path="/" element={<MainContent/>}/>
+      </Routes>
+      <Routes>
+        <Route exact path="/login" element={<Login/>}/>
+      </Routes>
+      <Routes>
+        <Route exact path="/register" element={<Register/>}/>
+      </Routes>
+      <Routes>
+        <Route exact path="/testimony" element={<TestimonyPage/>}/>
+      </Routes>
 
-      <Header />
+      <br/>
+      <br/>
+      <br/>
+      <br/>
+      <br/>
 
-      { 
-        homePage === 'home' ? <Home /> :
-        <Row className='landing p-lg-0 pt-lg-5'>
-        <Col>{
-          currentForm === "login" ? <Login onFormSwitch={toggleForm}/> : <Register onFormSwitch={toggleForm}/>
-        }</Col>
-        <Col> <Pict/></Col>
-      </Row>
-      }
-      <Services />
-      <Stylist />
-      <Location />
-      < Testimonies />
+      <div className='footer'>
       <Footer />
+      </div>
+      
+      </BrowserRouter>
     </div>
   );
 }
-
 export default App;

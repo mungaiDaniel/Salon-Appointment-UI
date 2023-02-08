@@ -1,13 +1,13 @@
-import femalehairs from '../Img/female-hairs.png';
-import manicure from '../Img/manicure.png';
-import braid from '../Img/braid.png';
-import cream from '../Img/cream.png';
-import pedicure from '../Img/pedicure.png';
-import './Services.scss';
+import femalehairs from './Img/female-hairs.png';
+import manicure from './Img/manicure.png';
+import braid from './Img/braid.png';
+import cream from './Img/cream.png';
+import pedicure from './Img/pedicure.png';
+import './styles/Services.scss';
 
 const Services = () => {
   return (
-    <div>
+    <div id='services'>
        <div className="container">
           <div className="row">
            <div className="col-12 text-center">
