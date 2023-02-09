@@ -55,7 +55,7 @@ const NavBar = () => {
   };
   return (
     <div className={classes.root}>
-    <AppBar className='navbar navbar-expand-lg bg-light navbar-dark py-1 mb-1' position='static'>
+    <AppBar className='navbar navbar-expand-lg bg-warning navbar-dark py-1 mb-1' position='static'>
         <Container>
         <Typography>
         <Link to="/" className='navbar-brand text-dark'>Salon Gerente</Link>
@@ -90,16 +90,14 @@ const NavBar = () => {
               <a href="#location" className="nav-link text-dark">Location</a>
             </li>
             <li className="nav-item">
-            <Button  className='nav-link lg-mt-2' onClick={handleClick}>
-  View
-</Button>
+            <a href="#" onClick={handleClick} className="nav-link text-dark">View More</a>
             </li>
           </ul>
         </div>
         </Typography>
 
 
-<Menu
+        <Menu
             id="simple-menu"
             anchorEl={anchorEl}
             keepMounted
