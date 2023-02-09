@@ -1,8 +1,6 @@
 import AddTask from './AddTestimonies'
-import Button from './Button'
 import Header from './Header'
 import Tasks from './Tasks'
-import Task from './Task'
 import { useEffect, useState } from 'react'
 import './addtestimony.scss'
 
