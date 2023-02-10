@@ -1,12 +1,14 @@
 import Task from "./Task"
 import './addtestimony.scss'
 
-const Tasks = ({tasks, onDelete}) => {
+const Tasks = ({tasks}) => {
    
   return (
     <>
-      {tasks.map((task, index) =>(
-          <Task key={index} task={task}  onDelete={onDelete}/>
+      {tasks.map((task) =>(
+           <Task key={task.id} task={task} />
+          
+         
          
       ))}
     </>

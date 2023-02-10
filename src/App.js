@@ -9,7 +9,8 @@ import 'font-awesome/css/font-awesome.min.css';
 import React, { Suspense, useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import TestimonyPage from './components/addTestimonies/TestimonyPage';
-
+import Book from './components/BookAppointment/Book';
+import Content from './components/BookAppointment/Content';
 function App() {
   const [currentForm, setCurrentForm] = useState('register');
   const [homePage, setHomePage] = useState('home')
@@ -17,6 +18,10 @@ function App() {
   const toggleForm = (formName) => {
     setCurrentForm(formName);
   }
+
+ 
+
+
   
 
   return (
@@ -35,6 +40,9 @@ function App() {
       </Routes>
       <Routes>
         <Route exact path="/testimony" element={<TestimonyPage/>}/>
+      </Routes>
+      <Routes>
+        <Route exact path="/book" element={<Book/>}/>
       </Routes>
 
       <br/>

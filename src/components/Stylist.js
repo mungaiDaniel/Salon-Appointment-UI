@@ -38,7 +38,7 @@ const Stylist = () => {
                   class="rounded-circle mb-3"
                   alt=""
                 />
-                <h3 class="card-title mb-3">Jane Doe</h3>
+                <h3 class="card-title mb-3">Jane Barathion</h3>
                 <p class="card-text">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Assumenda accusamus nobis sed cupiditate iusto? Quibusdam.
@@ -80,7 +80,7 @@ const Stylist = () => {
                   class="rounded-circle mb-3"
                   alt=""
                 />
-                <h3 class="card-title mb-3">Sara Smith</h3>
+                <h3 class="card-title mb-3">Sara Kim</h3>
                 <p class="card-text">
                   Lorem ipsum dolor sit amet consectetur adipisicing elit.
                   Assumenda accusamus nobis sed cupiditate iusto? Quibusdam.

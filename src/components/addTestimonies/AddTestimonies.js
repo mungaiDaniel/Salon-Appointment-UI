@@ -5,7 +5,6 @@ const AddTask = ({onAdd}) => {
     
     const [name, setText] = useState('')
     const [comment, setDay] = useState('')
-    const [reminder, setReminder] = useState(false)
 
 
     const onSubmit = (e) => {

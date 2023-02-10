@@ -1,5 +1,5 @@
-import { width } from '@mui/system'
 import girl from './Img/girl.jpg'
+import { Link } from "react-router-dom";
 
 const Home = () => {
   return (
@@ -22,9 +22,12 @@ const Home = () => {
       }}>
             Our mission is to provide our clients with results based on our clients needs and the advice of our professional hair stylist. Thank you to all of our clients who continue to support us and in making us one of the leading Hair Salons Kenya.
         </p>
-        <button type="button" class="btn btn-success mt-3" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+        
+            <Link to="/book">
+            <button type="button" class="btn btn-success mt-3" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
   Book Your Appointment Now
 </button>
+            </Link>
       </div>
      
 
