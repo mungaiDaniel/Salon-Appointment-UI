@@ -31,12 +31,15 @@ const TestimonyPage = () => {
   }
 
   return (
-    <div className='container' id='container'>
-        <Header onAdd={() => setShowAddTask(!showAddTask)}
+    <div className='containe' id='container'>
+      <div className='container'>
+      <Header onAdd={() => setShowAddTask(!showAddTask)}
           showAdd={showAddTask}
         />
         {showAddTask && <AddTask onAdd={addTask} />}
         <Tasks  tasks={tasks} />
+      </div>
+      
        
     </div>
   )
