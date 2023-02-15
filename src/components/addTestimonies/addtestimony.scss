@@ -8,16 +8,22 @@
 
 body {
   font-family: 'Poppins', sans-serif;
+ 
 }
 
 #container {
-  max-width: 500px;
+  background-image: url("../Img/pinkback.jpg");
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+  z-index: 1;
   margin: 30px auto;
   overflow: auto;
-  min-height: 300px;
-  border: 1px solid rgb(235, 231, 12);
+  min-height: 100vh;
+  border: 1px solid rgb(228, 170, 228);
   padding: 30px;
   border-radius: 5px;
+  width: 100vw;
 }
 
 .header {

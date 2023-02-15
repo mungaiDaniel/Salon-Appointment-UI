@@ -55,7 +55,7 @@ const NavBar = () => {
   };
   return (
     <div className={classes.root}>
-    <AppBar className='navbar navbar-expand-lg bg-warning navbar-dark py-1 mb-1' position='static'>
+    <AppBar className='navbar navbar-expand-lg bg-warning navbar-dark py-0 mb-1' position='static'>
         <Container>
         <Typography>
         <Link to="/" className='navbar-brand text-dark'>Salon Gerente</Link>
