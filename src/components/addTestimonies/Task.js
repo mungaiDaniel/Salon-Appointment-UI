@@ -2,11 +2,12 @@ import { FaTimes } from 'react-icons/fa'
 import './addtestimony.scss'
 
 
-const Task = ({task, onDelete, onToggle}) => {
+const Task = ({ task }) => {
   return (
-    <div className={`task ${task.reminder ? 'reminder' : ''}`} onDoubleClick={() => onToggle(task.id)}>
-      <h3>{task.name} <FaTimes style={{color: 'red', cursor: 'pointer'}}
-      onClick={() => onDelete(task.id)}/></h3> 
+    <div className='task'>
+      <h3> 
+        {task.name}
+       </h3>
       <p>{task.comment}</p>
     </div>
   )

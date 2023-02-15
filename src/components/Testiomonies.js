@@ -1,6 +1,8 @@
 import { Slide } from 'react-slideshow-image';
 import 'react-slideshow-image/dist/styles.css';
 import './styles/Testiominies.scss';
+import { Link } from "react-router-dom";
+
 
 const Testimonies = () => {
 
@@ -12,6 +14,11 @@ const Testimonies = () => {
             These reviews that our clients have recently submitted are the best way to learn more about our barbershops level of service and customer support. 
             </p>
         </div>
+        <Link to="/testimony">
+            <button type="button" class="btn btn-success mt-3" data-toggle="tooltip" data-placement="right" title="Tooltip on right">
+  Add a Testimony
+</button>
+</Link>
 
             <Slide>
     <div>
