@@ -12,6 +12,7 @@ import NewBookings from "./NewBookings";
 import Pendings from "./Pendings";
 import Accepted from "./Accepted";
 import Postponed from "./Postponed";
+import './paper.scss';
 const style = theme => ({
     root: {
       border: `8px solid ${theme.palette.common.white}`,
@@ -48,14 +49,14 @@ const style = theme => ({
     const tabs = ["New Bookings", "Pendings", "accepted", "postponed"];
   
     return (
-      <Paper style={{}} elevation={1} className='lead p-5 w-100 w-sm-50 w-md-50 vw-lg-100' >
+      <Paper style={{}} elevation={1} className='container horizontal-scrollable' id="paper">
         <Typography
           variant="h4"
           gutterBottom
           color="primary"
           style={{ padding: "0 8px" }}
         >
-          Book your Appointment
+          Your Appointment Details
         </Typography>
         <Typography gutterBottom>
           This information will let us know about your preferences.
