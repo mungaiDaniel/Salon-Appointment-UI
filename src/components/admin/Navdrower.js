@@ -20,6 +20,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Bookings from './Bookings';
 import { ListItemButton } from '@mui/material';
+import Users from './Users';
 
 
 
@@ -145,6 +146,7 @@ const Navdrower = (props, {onFormSwitch}) => {
           <div className={classes.toolbar} />
        
           { currentForm === "Bookings" && <Bookings />}
+          { currentForm === "Users" && <Users />}
          
         </main>
       </div>
