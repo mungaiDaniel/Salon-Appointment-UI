@@ -115,6 +115,9 @@ const NavBar = () => {
             <Link to="/testimony" className={classes.links}>
               <MenuItem onClick={handleClose}>Testimonies</MenuItem>
             </Link>
+            <Link to="/admin" className={classes.links}>
+              <MenuItem onClick={handleClose}>Admin</MenuItem>
+            </Link>
             <MenuItem onClick={handleClose}>Logout</MenuItem>
           </Menu>
          

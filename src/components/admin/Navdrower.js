@@ -12,15 +12,13 @@ import ImportContactsIcon from '@material-ui/icons/ImportContacts';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import FaceRounded from '@material-ui/icons/FaceRounded';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Bookings from './Bookings';
-import { ListItemButton } from '@mui/material';
 import Users from './Users';
+import { Link } from "react-router-dom";
 
 
 
@@ -29,6 +27,9 @@ const drawerWidth = 200;
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
+    [theme.breakpoints.up('sm')]: {
+      width: 100,
+    }
   },
   drawer: {
     [theme.breakpoints.up('sm')]: {
@@ -59,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Navdrower = (props, {onFormSwitch}) => {
+const Navdrower = (props) => {
     const { window } = props;
     const classes = useStyles();
     const theme = useTheme();
@@ -107,7 +108,7 @@ const Navdrower = (props, {onFormSwitch}) => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" noWrap className='text-dark'>
-              Salon Gerente
+            <Link to="/" className='navbar-brand text-dark'>Salon Gerente</Link>
             </Typography>
           </Toolbar>
         </AppBar>
@@ -144,7 +145,6 @@ const Navdrower = (props, {onFormSwitch}) => {
         </nav>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-       
           { currentForm === "Bookings" && <Bookings />}
           { currentForm === "Users" && <Users />}
          

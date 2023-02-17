@@ -1,6 +1,6 @@
 import React from 'react'
-import { Avatar, Box , Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core'
-import { AccountBalance, Person } from '@material-ui/icons'
+import { Avatar, Box , Divider, List, ListItem, ListItemAvatar, ListItemText, Typography, Switch } from '@material-ui/core'
+import { Person } from '@material-ui/icons'
 
 const user = [	{
     "Email": "Danitomonga@gmail.com",
@@ -57,7 +57,7 @@ const user = [	{
     "PhoneNumber": 71234567
 }
 ]
-
+const label = { inputProps: { 'aria-label': 'Switch demo' } };
 const Users = () => {
   return (
     <div className='bg-light '>
@@ -75,9 +75,11 @@ const Users = () => {
                             <Person/>
                         </Avatar>
                     </ListItemAvatar>
+                   
                     <ListItemText primary={text.FirstName} secondary={text.PhoneNumber}>
 
                     </ListItemText>
+                    <Switch {...label}/>
                 </ListItem>
                 <Divider />
                 </>
