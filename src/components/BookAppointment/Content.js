@@ -56,10 +56,10 @@ const style = theme => ({
           color="primary"
           style={{ padding: "0 8px" }}
         >
-          Book your Appointment
+         Your Appointment Information
         </Typography>
         <Typography gutterBottom>
-          This information will let us know about your preferences.
+          This information will let us know about your bookings.
         </Typography>
         <BookHeader
           tabs={tabs}

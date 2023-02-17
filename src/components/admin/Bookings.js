@@ -8,6 +8,10 @@ import {
   Button,
 } from "@material-ui/core";
 import BookHeader from "../BookAppointment/BookHeader";
+import NewBookings from "./NewBookings";
+import Pendings from "./Pendings";
+import Accepted from "./Accepted";
+import Postponed from "./Postponed";
 const style = theme => ({
     root: {
       border: `8px solid ${theme.palette.common.white}`,
@@ -64,7 +68,10 @@ const style = theme => ({
   
         <form>
           <SwipeableViews index={activeStep} onChangeIndex={handleChange}>
-           
+           <NewBookings />
+           <Pendings />
+           <Accepted />
+           <Postponed />
           </SwipeableViews>
           <Grid
             container
