@@ -1,5 +1,5 @@
 import React from 'react'
-import { Avatar, Box , Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core'
+import { Avatar, Box , Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core'
 import { AccountBalance, Person } from '@material-ui/icons'
 
 const user = [	{
@@ -60,22 +60,22 @@ const user = [	{
 
 const NewBookings = () => {
   return (
-    <div className='bg-light '>
-      <Box className='m-5 '>
+    <div className='bg-light  '>
+      <Box className='m-5'>
          <Typography variant='h5' color='warning' align='center' > 
-            My Users
+            New bookings
          </Typography>
          <Box className='mx-5'>
-         <List disablePadding> 
+         <List > 
             {user.map((text, index)=>(
                 <>
-                <ListItem key={index} button >
+                <ListItem key={index} button sx={{ width: '50%', maxWidth: 360, bgcolor: 'background.paper' }}>
                     <ListItemAvatar>
                         <Avatar>
                             <Person/>
                         </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={text.FirstName} secondary={text.PhoneNumber}>
+                    <ListItemText primary={text.FirstName} secondary={text.PhoneNumber} className='container'>
 
                     </ListItemText>
                 </ListItem>

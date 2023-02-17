@@ -5,29 +5,25 @@ import Navdrower from './components/admin/Navdrower';
 import Login from './components/auth/LoginInfo';
 import Footer from './components/Footer';
 import MainContent from './components/MainContent';
-import Register from './components/auth/RegisterInfo';
 import 'font-awesome/css/font-awesome.min.css';
-import React, { Suspense, useState} from 'react';
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import TestimonyPage from './components/addTestimonies/TestimonyPage';
 import Book from './components/BookAppointment/Book';
-import AdminPage from './components/admin/AdminPage';
-import Content from './components/BookAppointment/Content';
 import Signup from './components/auth/Signup';
 function App() {
-  const [currentForm, setCurrentForm] = useState('register');
-  const [homePage, setHomePage] = useState('home')
-
- 
 
 
+  const location = useLocation()
+
+  const isAdmin = location.pathname === "/admin"
   
 
   return (
     <div className="App">
-      <BrowserRouter>
+     
       
-      <NavBar />
+     { !isAdmin && <NavBar />}
         <Routes>
           <Route exact path="/" element={<MainContent/>}/>
         </Routes>
@@ -57,10 +53,11 @@ function App() {
       <br/>
 
       <div className='footer'>
-      <Footer />
+      { !isAdmin && <Footer />}
       </div>
-      </BrowserRouter>
+     
     </div>
+ 
   );
 }
 export default App;
