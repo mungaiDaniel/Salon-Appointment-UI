@@ -6,9 +6,11 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const AdminPage = () => {
   return (
-    <div>
-      
-    </div>
+    <div className="app">
+    <div className="wizard">
+      <Bookings/>
+      </div>
+  </div>
   )
 }
 

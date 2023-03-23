@@ -5,10 +5,9 @@ import Register from './RegisterInfo';
 import Pict from '../Pict';
 const Signup = () => {
   return (
-    <div>
-      <Row className='containe'>
+    <div className='d-sm-flex align-items-center justify-content-between'>
+      <Row>
         <Col><Register /></Col>
-        <Col> <Pict/></Col>
       </Row>
     </div>
   )

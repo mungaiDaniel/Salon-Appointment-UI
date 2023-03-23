@@ -4,7 +4,7 @@ import {Image} from "react-bootstrap";
 const Pict = () => {
   return (
     <div>
-      <Image src={salon2} thumbnail style={{border:'none'}} className="fluid" />
+      <Image src={salon2} thumbnail style={{border:'none'}} className="img-fluid w-50 d-none d-sm-block" />
     </div>
   )
 }
