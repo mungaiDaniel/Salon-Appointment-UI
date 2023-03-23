@@ -19,7 +19,7 @@ import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Bookings from './Bookings';
 import Users from './Users';
 import { Link } from "react-router-dom";
-
+import AdminPage from './AdminPage';
 
 
 const drawerWidth = 200;
@@ -145,7 +145,7 @@ const Navdrower = (props) => {
         </nav>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          { currentForm === "Bookings" && <Bookings />}
+          { currentForm === "Bookings" && <AdminPage />}
           { currentForm === "Users" && <Users />}
          
         </main>
