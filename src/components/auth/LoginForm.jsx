@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { Link as RouterLink} from "react-router-dom";
 import {
   FormControl,
   Box,
@@ -46,8 +46,9 @@ const LoginForm = () => {
     .then((res) =>{
      localStorage.setItem("access_token", res.data.value.access_token)
         if (res.data.value.access_token){
+          window.alert('welcome')
             window.location.assign("http://127.0.0.1:3000"); 
-            window.alert('welcome')
+            
         } else{
             const err = new Error(`failed to fetch posts username or password is incorrect`)
                 window.alert(err);}

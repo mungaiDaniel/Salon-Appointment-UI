@@ -1,164 +1,48 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Divider from '@material-ui/core/Divider';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton'; 
-import GroupIcon from '@material-ui/icons/Group';
-import List from '@material-ui/core/List';
-import ImportContactsIcon from '@material-ui/icons/ImportContacts';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import MenuIcon from '@material-ui/icons/Menu';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { useState } from 'react';
 import Bookings from './Bookings';
 import Users from './Users';
-import { Link } from "react-router-dom";
-import AdminPage from './AdminPage';
+import Employee from './Employee';
+import Servicesoffered from './Servicesoffered';
 
 
-const drawerWidth = 200;
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    [theme.breakpoints.up('sm')]: {
-      width: 100,
-    }
-  },
-  drawer: {
-    [theme.breakpoints.up('sm')]: {
-      width: drawerWidth,
-      flexShrink: 0,
-    },
-  },
-  appBar: {
-    [theme.breakpoints.up('sm')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
-    },
-  },
-  menuButton: {
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
-      display: 'none',
-    },
-  },
-  // necessary for content to be below app bar
-  toolbar: theme.mixins.toolbar,
-  drawerPaper: {
-    width: drawerWidth,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
-  },
-}));
+const Navdrower = () => {
 
-const Navdrower = (props) => {
-    const { window } = props;
-    const classes = useStyles();
-    const theme = useTheme();
-    const [mobileOpen, setMobileOpen] = React.useState(false);
-    const [currentForm, setCurrentForm] = React.useState('')
+  const [currentPage, setCurrentPage] = useState("")
 
-    const handleDrawerToggle = () => {
-      setMobileOpen(!mobileOpen);
-    };
-  
-    const drawer = (
-      <div>
-        <div className={classes.toolbar} style={{backgroundColor:'orange'}} />
-        <Divider />
-        <List >
-          {['Users', 'Bookings', 'employees', 'Services'].map((text, index) => (
-               
-            
-            <ListItem button key={text} onClick={() => setCurrentForm(text)} >
-                
-              <ListItemIcon >{index % 2 === 0 ? <GroupIcon className='m-2' /> : <ImportContactsIcon className='m-2' />}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-    
-          ))}
-        </List>
-        <Divider />
-      </div>
-    );
-  
-    const container = window !== undefined ? () => window().document.body : undefined;
-  
     return (
-      <div className={classes.root} >
-        <CssBaseline  />
-        <AppBar position="fixed" className={classes.appBar} style={{backgroundColor:'orange'}}>
-          <Toolbar >
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              className={classes.menuButton}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" noWrap className='text-dark'>
-            <Link to="/" className='navbar-brand text-dark'>Salon Gerente</Link>
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <nav className={classes.drawer} aria-label="mailbox folders" style={{backgroundColor: 'orange'}} >
-          {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
-          <Hidden smUp implementation="css">
-            <Drawer
-              container={container}
-              variant="temporary"
-              anchor={theme.direction === 'rtl' ? 'right' : 'left'}
-              open={mobileOpen}
-              onClose={handleDrawerToggle}
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              ModalProps={{
-                keepMounted: true, // Better open performance on mobile.
-              }}
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-          <Hidden xsDown implementation="css"  >
-            <Drawer
-              classes={{
-                paper: classes.drawerPaper,
-              }}
-              variant="permanent"
-              open
-            >
-              {drawer}
-            </Drawer>
-          </Hidden>
-        </nav>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          { currentForm === "Bookings" && <AdminPage />}
-          { currentForm === "Users" && <Users />}
-         
-        </main>
+      <div  >
+        <nav class="navbar navbar-expand-md navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Salon Gerente</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse mx-5" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" onClick={()=> setCurrentPage("users")} href="#">Users</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onClick={()=> setCurrentPage("bookings")}>Bookings</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" onClick={()=> setCurrentPage("assisstance")}>Assisstance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" onClick={()=> setCurrentPage("services")} aria-disabled="true">Services</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+      {currentPage === "users" && <Users />}
+      {currentPage === "bookings" && <Bookings/>}
+      {currentPage === "assisstance" && <Employee />}
+      {currentPage === "services" && <Servicesoffered/>}
       </div>
     );
   }
-  
-  Navdrower.propTypes = {
-    /**
-     * Injected by the documentation to work in an iframe.
-     * You won't need it on your project.
-     */
-    window: PropTypes.func,
-  };
   
 export default Navdrower

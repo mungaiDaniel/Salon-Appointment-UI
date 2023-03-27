@@ -1,6 +1,6 @@
 import React from 'react'
-import { Avatar, Box , Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core'
-import { AccountBalance, Person } from '@material-ui/icons'
+import { Avatar, Box , Divider, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core'
+import {  Person } from '@material-ui/icons'
 
 const user = [	{
     "Email": "Danitomonga@gmail.com",
@@ -61,7 +61,7 @@ const user = [	{
 const NewBookings = () => {
   return (
     <div className='bg-light  '>
-      <Box className='m-5'>
+      {/* <Box className='m-5'>
          <Typography variant='h5' color='warning' align='center' > 
             New bookings
          </Typography>
@@ -84,7 +84,7 @@ const NewBookings = () => {
             ))}
          </List>
          </Box>
-      </Box>
+      </Box> */}
     </div>
   )
 }

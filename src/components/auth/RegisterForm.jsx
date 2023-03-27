@@ -44,8 +44,15 @@ const RegisterForm = () => {
       password,
       location,
       phoneNumber,
+    }).then((response) => {
+      if (response.data){
+        window.alert(`${response.data.firstName} is Registered successfully`)
+        return  window.location.assign("http://127.0.0.1:3000/login"); 
+      } else{
+        const err = new Error(`failed to fetch posts: ${response.status}: email ${email} already exist`)
+        window.alert(err);
+      }
     })
-    console.log(resp.data);
   };
 
   return (
