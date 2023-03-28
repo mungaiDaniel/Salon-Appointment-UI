@@ -27,7 +27,7 @@ const Contacts = ({ classes }) => {
       alignItems="center"
       className={classes.root}
     >
-      <Grid container direction="row" alignItems="center" alignContent="center">
+      {/* <Grid container direction="row" alignItems="center" alignContent="center">
         <Grid item xs={2}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,7 +72,7 @@ const Contacts = ({ classes }) => {
             onChange={handlePhoneChange}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 };

@@ -38,7 +38,7 @@ function SelectDateDaypart({ classes }) {
       alignItems="center"
       className={classes.root}
     >
-      <Grid item xs={2}>
+      {/* <Grid item xs={2}>
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
@@ -88,7 +88,7 @@ function SelectDateDaypart({ classes }) {
             />
           ))}
         </RadioGroup>
-      </Grid>
+      </Grid> */}
     </Grid>
   );
 }

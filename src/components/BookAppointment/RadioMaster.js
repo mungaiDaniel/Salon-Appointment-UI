@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   withStyles,
   Grid,
@@ -8,37 +8,10 @@ import {
   Tooltip
 } from "@material-ui/core";
 import classNames from "classnames";
-const masters = [
-  {
-    name: "John ",
-    url:
-      "https://randomuser.me/api/portraits/men/11.jpg",
-    tooltipTxt: "haircut, combing, colouring"
-  },
-  {
-    name: "Jane ",
-    url:
-      "https://randomuser.me/api/portraits/women/11.jpg",
-    tooltipTxt: "haircut, combing, colouring"
-  },
-  {
-    name: "Steve ",
-    url:
-      "https://randomuser.me/api/portraits/men/12.jpg",
-    tooltipTxt: "combing, colouring, waving"
-  },
-  {
-    name: "Sara ",
-    url:
-      "https://randomuser.me/api/portraits/women/12.jpg",
-    tooltipTxt: "waving, and straightening hair "
-  }
-];
+import axios from "axios";
+
+
 const style = theme => {
-  // const active = {
-  //   filter: "grayscale(0)",
-  //   border: `3px solid ${theme.palette.primary.main}`
-  // };
   return {
     root: {},
     mainClass: {
@@ -91,9 +64,24 @@ const style = theme => {
   };
 };
 
-const RadioMasters = ({ classes }) => {
-  const [checked, setChecked] = useState(-1);
-  const handleChecked = i => e => setChecked(i);
+const RadioMasters = ({ classes , setEmployee_id }) => {
+
+  const [users, setUsers] = useState([])
+  const getInitialState = () => {
+    return users.reduce((obj, item) => {
+    obj[item.id] = false;
+    return obj;
+  }, {});
+};
+  const [checked, setChecked] = useState(getInitialState());
+  const handleChecked = id => e => {
+    setChecked({ ...checked, [id]: e.target.checked});
+    setEmployee_id(e.target.value)
+  };
+
+  const textSelected = Object.keys(checked)
+    .filter(key => checked[key])
+    .join(", ");
   const itemOuterClass = i =>
     classNames({
       [classes.mainClass]: true,
@@ -104,42 +92,50 @@ const RadioMasters = ({ classes }) => {
       [classes.mainLblClass]: true,
       [classes.LblChecked]: checked === i
     });
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:5000/employees")
+    .then((response)=>{
+      setUsers(response.data)
+    })
+  }, [])
+
   return (
     <Grid
       container
       style={{justifyContent:"center", height: "100%"}}
       alignItems="center"
     >
-      {masters.map((master, i) => (
+      {users.map((user, i) => (
         <Grid
           item
           xs={6}
           sm={3}
-          key={i}
+          key={user.id}
           container
           style={{justifyContent:"center"}}
           alignItems="center"
           direction="column"
         >
           <ButtonBase className={itemOuterClass(i)}>
-            <Tooltip title={master.tooltipTxt} placement="top-end">
+            
               <input
                 type="radio"
                 name="master"
-                id={master.name}
-                value={checked === i && master.name}
-                checked={checked === i}
-                onChange={handleChecked(i)}
+                id={user.id}
+                value={user.id}
+                checked={checked}
+                onChange={handleChecked(user.id)}
                 className={classes.input}
               />
-            </Tooltip>
+          
             <div
               className={classes.itemInner}
-              style={{ backgroundImage: `url(${master.url})` }}
+              // style={{ backgroundImage: `url(${master.url})` }}
             />
           </ButtonBase>
-          <label htmlFor={master.name} className={labelClass(i)}>
-            {master.name}
+          <label htmlFor={user.id} className={labelClass(i)}>
+            {user.firstName}
           </label>
         </Grid>
       ))}
@@ -159,7 +155,7 @@ const RadioMasters = ({ classes }) => {
       <input
         type="text"
         name="selected master"
-        value={checked > -1 ? masters[checked].name : "none"}
+        value={textSelected}
         style={{ width: 1, height: 1, opacity: 0.1 }}
         readOnly
       />

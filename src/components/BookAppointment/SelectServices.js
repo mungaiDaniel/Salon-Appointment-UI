@@ -1,25 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { withStyles, FormControlLabel, Grid, Switch } from "@material-ui/core";
+import axios from "axios";
 
-const services = [
-  {
-    name: "hair care and washing"
-  },
-  { name: "haircut" },
-  { name: "coloring"},
-  { name: "waving"},
-  {
-    name: "straightening",
+// const services = [
+//   {
+//     name: "hair care and washing"
+//   },
+//   { name: "haircut" },
+//   { name: "coloring"},
+//   { name: "waving"},
+//   {
+//     name: "straightening",
 
-  }
-];
-const getInitialState = () => {
-  return services.reduce((obj, item) => {
-    obj[item.name] = false;
-    return obj;
-  }, {});
-};
+//   }
+// ];
+// const getInitialState = () => {
+//   return services.reduce((obj, item) => {
+//     obj[item.name] = false;
+//     return obj;
+//   }, {});
+// };
 const style = theme => ({
   root: {
     padding: 8,
@@ -35,14 +36,32 @@ const style = theme => ({
     height: 28
   }
 });
-const SelectService = ({ classes }) => {
+const SelectService = ({ classes, setService_id }) => {
+
+  const [services, setServices] = useState([])
+  const getInitialState = () => {
+      return services.reduce((obj, item) => {
+      obj[item.id] = false;
+      return obj;
+    }, {});
+};
   const [serviceSelected, setServiceSelected] = useState(getInitialState());
-  const handleChange = name => e =>
-    setServiceSelected({ ...serviceSelected, [name]: e.target.checked });
+  const handleChange = id => e => {
+    setServiceSelected({ ...serviceSelected, [id]: e.target.checked });
+    setService_id(e.target.value)
+  }
+   
 
   const textSelected = Object.keys(serviceSelected)
     .filter(key => serviceSelected[key])
     .join(", ");
+
+  useEffect(() => {
+    axios.get("http://127.0.0.1:5000/stylings")
+    .then((response) => {
+      setServices(response.data)
+    })
+  })
 
   return (
     <Grid
@@ -55,7 +74,7 @@ const SelectService = ({ classes }) => {
       {services.map((service, i) => (
         <Grid
           item
-          key={service.name}
+          key={service.id}
           container
           justifyContent="space-between"
           alignItems="center"
@@ -63,7 +82,6 @@ const SelectService = ({ classes }) => {
         >
           <svg
             className={classes.icon}
-            viewBox={service.iconViewBox}
             xmlns="http://www.w3.org/2000/svg"
           >
             {service.iconPath}
@@ -71,13 +89,13 @@ const SelectService = ({ classes }) => {
           <FormControlLabel
             control={
               <Switch
-                onChange={handleChange(service.name)}
-                value={service.name}
+                onChange={handleChange(service.id)}
+                value={service.id}
                 color="primary"
               />
             }
-            label={service.name}
-            checked={serviceSelected[service.name]}
+            label={service.style}
+            checked={serviceSelected[service.id]}
             labelPlacement="start"
           />
         </Grid>

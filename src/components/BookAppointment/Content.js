@@ -12,6 +12,7 @@ import RadioMaster from "./RadioMaster";
 import SelectServices from "./SelectServices";
 import SelectDateDaypart from "./SelectDateDaypart";
 import Contacts from "./Contacts";
+import httpClient from "../../httpClient";
 
 const style = theme => ({
     root: {
@@ -43,11 +44,37 @@ const style = theme => ({
 
   const Content = ({ classes }) => {
     const [activeStep, setActiveStep] = useState(0);
-    const handleChange = index => e => setActiveStep(index);
+
+    
     const nandleNext = () => setActiveStep(activeStep + 1);
     const nandlePrev = () => setActiveStep(activeStep - 1);
     const tabs = ["Master", "Service", "Date", "Contact"];
-  
+    const [employee_id, setEmployee_id] = useState("")
+    const [service_id, setService_id] = useState("")
+    
+    const BookAppointment = async () => {
+      console.log(
+        employee_id, service_id
+      )
+      const resp = await httpClient.post("http://127.0.0.1:5000/booking", {
+        employee_id,
+        service_id
+      },
+      {
+        
+          headers:
+          {
+              Authorization : `Bearer ${localStorage.getItem("access_token")}`
+          }
+        
+      })
+      console.log(resp.data)
+    }
+    const handleChange = index => e => {
+      setActiveStep(index)
+      BookAppointment(e.target.value)
+    };
+
     return (
       <Paper style={{}} elevation={1} className='lead p-5 w-100 w-sm-50 w-md-50 vw-lg-100' >
         <Typography
@@ -69,10 +96,10 @@ const style = theme => ({
   
         <form>
           <SwipeableViews index={activeStep} onChangeIndex={handleChange}>
-            <RadioMaster />
-            <SelectServices />
-            <SelectDateDaypart />
-            <Contacts />
+            <RadioMaster setEmployee_id={setEmployee_id} />
+            <SelectServices setService_id={setService_id} />
+            {/* <SelectDateDaypart />
+            <Contacts /> */}
           </SwipeableViews>
           <Grid
             container
@@ -106,8 +133,10 @@ const style = theme => ({
               <Grid item>
                 <Button
                   color="primary"
+                  type="submit"
                   className={classes.navigation}
                   variant="contained"
+                  onClick={(BookAppointment())}
                 >
                   Submit
                 </Button>

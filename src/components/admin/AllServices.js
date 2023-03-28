@@ -21,7 +21,7 @@ const AllServices = () => {
     }
 
   return (
-    <div className="contained">
+    <div className="container m-5 align-items-center justify-content-between">
         <h2 className='text-primary'>Services offered</h2>
         <br/>
         <Table striped bordered hover>
