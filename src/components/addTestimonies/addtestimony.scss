@@ -12,18 +12,15 @@ body {
 }
 
 #container {
-  background-image: url("../Img/pinkback.jpg");
+  background-image: url("../Img/abstract.jpg");
   background-size: cover;
-  background-position: center center;
   background-attachment: fixed;
   z-index: 1;
   margin: 30px auto;
-  overflow: auto;
-  min-height: 100vh;
   border: 1px solid rgb(228, 170, 228);
   padding: 30px;
   border-radius: 5px;
-  width: 100vw;
+  
 }
 
 .header {
@@ -31,11 +28,12 @@ body {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  color: #ffae00;
 }
 
 .btn {
   display: inline-block;
-  background: #000;
+  background: #382b0b;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -45,6 +43,7 @@ body {
   text-decoration: none;
   font-size: 15px;
   font-family: inherit;
+  
 }
 
 .btn:focus {
@@ -59,12 +58,18 @@ body {
   display: block;
   width: 100%;
 }
+.btn:hover{
+  background-color: #000000b9;
+  color: #ffffff;
+}
 
 .task {
-  background: #f4f4f4;
+  background: #dcad48be;
   margin: 5px;
-  padding: 10px 20px;
+  border-radius: 2rem;
+  padding: 1.5rem;
   cursor: pointer;
+  font-size: 0.8rem;
 }
 
 .task.reminder {
@@ -79,10 +84,14 @@ body {
 
 .add-form {
   margin-bottom: 40px;
+  background-color: #ffae00;
+  border-radius: 1rem;
 }
 
 .form-control {
   margin: 20px 0;
+  background-color: #ffae00;
+  border: none;
 }
 
 .form-control label {
@@ -115,4 +124,10 @@ body {
 footer {
   margin-top: 30px;
   text-align: center;
+}
+input{
+  background-color: #00000069;
+  border: none;
+  border-radius: 1rem;
+  color: #ffffff;
 }

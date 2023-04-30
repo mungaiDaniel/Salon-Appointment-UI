@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { withStyles, TextField, Grid } from "@material-ui/core";
+import axios from "axios";
 const style = theme => {
   return {
     root: {
@@ -14,11 +15,15 @@ const style = theme => {
   };
 };
 
-const Contacts = ({ classes }) => {
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
-  const handleNameChange = e => setName(e.target.value);
-  const handlePhoneChange = e => setPhone(e.target.value);
+const Contacts = ({ classes, employee_id, service_id, date, time , employee, service}) => {
+  // const [bookings, setBookings] = useState([])
+
+  // useEffect(() =>{
+  //   axios.get("http://127.0.0.1:5000/booking")
+  //   .then((res) => {
+  //     setBookings(res.data)
+  //   })
+  // }, [])
 
   return (
     <Grid
@@ -27,52 +32,17 @@ const Contacts = ({ classes }) => {
       alignItems="center"
       className={classes.root}
     >
-      {/* <Grid container direction="row" alignItems="center" alignContent="center">
-        <Grid item xs={2}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            className={classes.icon}
-            width="30px"
-            height="30px"
-          >
-          </svg>
-        </Grid>
-        <Grid item xs={10}>
-          <TextField
-            name="name"
-            value={name}
-            fullWidth
-            margin="normal"
-            label="Enter your name"
-            variant="filled"
-            onChange={handleNameChange}
-          />
-        </Grid>
-      </Grid>{" "}
-      <Grid container direction="row" alignItems="center">
-        <Grid item xs={2}>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 463.009 463.009"
-            className={classes.icon}
-            width="24px"
-            height="24px"
-          >
-          </svg>
-        </Grid>
-        <Grid item xs={10}>
-          <TextField
-            name="phone"
-            value={phone}
-            fullWidth
-            margin="normal"
-            label="Enter your phone number "
-            variant="filled"
-            onChange={handlePhoneChange}
-          />
-        </Grid>
-      </Grid> */}
+       
+       <ul class="list-group list-group w-100">
+  <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Assisstance:</h4>{employee.firstName}</li>
+  <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Service:</h4>{service.style} </li>
+  <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Date:</h4>{date}</li>
+  <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Time:</h4>{time}</li>
+  
+        </ul>
+    
+      
+    
     </Grid>
   );
 };

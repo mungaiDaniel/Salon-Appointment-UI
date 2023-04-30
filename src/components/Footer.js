@@ -4,8 +4,10 @@ import './styles/Footer.scss';
 const Footer = () => {
   return (
     <footer
-    className="footer page-footer font-small p-5 bg-dark text-white text-center position-relative p-lg-0 pt-lg-5"
-    style={{ backgroundColor: "#D6CFD0" }}
+    className="footer  page-footer font-small p-5 bg-dark text-white text-center position-relative  p-lg-0 pt-lg-5"
+    style={{ backgroundColor: "#D6CFD0",
+            marginTop: '13rem'          
+  }}
   >
     <div style={{ backgroundColor: "#37474F" }}>
       <div className="container">
@@ -18,7 +20,6 @@ const Footer = () => {
               Get connected with us on social networks!
             </h6>
           </div>
-
           <div
             className="col-md-6 col-lg-7 text-center text-md-right align-items-center justify-content-between"
             style={{ color: "#fff" }}

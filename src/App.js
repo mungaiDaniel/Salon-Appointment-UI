@@ -6,7 +6,7 @@ import Login from './components/auth/LoginInfo';
 import Footer from './components/Footer';
 import MainContent from './components/MainContent';
 import 'font-awesome/css/font-awesome.min.css';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import TestimonyPage from './components/addTestimonies/TestimonyPage';
 import Book from './components/BookAppointment/Book';
@@ -17,12 +17,11 @@ function App() {
   const location = useLocation()
 
   const isAdmin = location.pathname === "/admin"
+  const isTestiomny = location.pathname ==="/testimony"
   
 
   return (
     <div className="App">
-     
-      
      { !isAdmin && <NavBar />}
         <Routes>
           <Route exact path="/" element={<MainContent/>}/>
@@ -46,18 +45,10 @@ function App() {
           <Route exact path="/employee" element={<Book/>}/>
         </Routes>
 
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-      <br/>
-
       <div className='footer'>
-      { !isAdmin && <Footer />}
+      { !isAdmin || !isTestiomny && <Footer />}
       </div>
-     
     </div>
- 
   );
 }
 export default App;

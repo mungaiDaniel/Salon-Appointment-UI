@@ -40,7 +40,7 @@ const style = theme => {
       marginBottom: 16
     },
     //class for checked item
-    checked: {
+    checke: {
       filter: "grayscale(0)",
       border: `3px solid ${theme.palette.primary.main}`
     },
@@ -64,7 +64,7 @@ const style = theme => {
   };
 };
 
-const RadioMasters = ({ classes , setEmployee_id }) => {
+const RadioMasters = ({ classes , setEmployee_id, setEmployee }) => {
 
   const [users, setUsers] = useState([])
   const getInitialState = () => {
@@ -74,9 +74,12 @@ const RadioMasters = ({ classes , setEmployee_id }) => {
   }, {});
 };
   const [checked, setChecked] = useState(getInitialState());
-  const handleChecked = id => e => {
+  const handleChecked = (id, user) => e => {
     setChecked({ ...checked, [id]: e.target.checked});
     setEmployee_id(e.target.value)
+    console.log(user, '<><><><><><><><><><' ,id);
+    setEmployee(user)
+    
   };
 
   const textSelected = Object.keys(checked)
@@ -125,7 +128,7 @@ const RadioMasters = ({ classes , setEmployee_id }) => {
                 id={user.id}
                 value={user.id}
                 checked={checked}
-                onChange={handleChecked(user.id)}
+                onClick={handleChecked(user.id,user)}
                 className={classes.input}
               />
           

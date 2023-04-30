@@ -4,11 +4,15 @@ import './addtestimony.scss'
 
 const Task = ({ task }) => {
   return (
+    <div style={{display:'flex'}}>
+
     <div className='task'>
-      <h3> 
+      <h5> 
         {task.name}
-       </h3>
+       </h5>
       <p>{task.comment}</p>
+    </div>
+    <div></div>
     </div>
   )
 }

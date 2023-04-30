@@ -21,6 +21,8 @@ const AddTask = ({onAdd}) => {
     }
 
   return (
+    <div style={{display:'flex'}}>
+
     <form className="add-form" onSubmit={onSubmit}>
       <div className="form-control">
         <label>Full Name</label>
@@ -34,8 +36,10 @@ const AddTask = ({onAdd}) => {
             setDay(e.target.value)
         }/>
       </div>
-      <input type="submit"  value="save task" className="btn btn-block"/>
+      <input type="submit"  value="save task" className="btn"/>
     </form>
+    <div></div>
+            </div>
   )
 }
 

@@ -65,7 +65,11 @@ const Servicesoffered = () => {
           Authorization : `Bearer ${localStorage.getItem("access_token")}`
       }
     }
-    )
+    ).then((res) => {
+        if(res.resp.data){
+          window.alert('success')
+        }
+    })
     console.log(resp.data)
   };
 

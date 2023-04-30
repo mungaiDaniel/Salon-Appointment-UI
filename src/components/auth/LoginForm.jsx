@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link as RouterLink} from "react-router-dom";
+import { Alert, AlertTitle } from '@mui/material';
+import { Link as RouterLink, useNavigate} from "react-router-dom";
 import {
   FormControl,
   Box,
@@ -34,32 +35,39 @@ const LoginForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState('')
+  const navigate = useNavigate()
 
   const LoginUser = async () => {
     console.log(email, password);
 
-    axios
+     await axios
     .post("http://127.0.0.1:5000/login", {
       email,
       password,
     })
     .then((res) =>{
+     localStorage.setItem("user_role", res.data.value.user_role)
      localStorage.setItem("access_token", res.data.value.access_token)
-        if (res.data.value.access_token){
-          window.alert('welcome')
-            window.location.assign("http://127.0.0.1:3000"); 
-            
-        } else{
-            const err = new Error(`failed to fetch posts username or password is incorrect`)
-                window.alert(err);}
+     navigate('/')
         })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+
+      console.log(err)
+      setError('Wrong password or email credentials')
+              setTimeout(() =>{
+                setError('')
+              }, 4000)
+    })
 
   }
 
   return (
     <Container>
+     
+
       <FormControl>
+
         <Box
           component={motion.div}
           animate={{
@@ -68,6 +76,8 @@ const LoginForm = () => {
             },
           }}
         >
+
+
           <Box
             sx={{
               display: "flex",
@@ -151,8 +161,13 @@ const LoginForm = () => {
             >
               Login
             </LoadingButton>
+            { error && <Alert severity="error">
+  <AlertTitle>Error</AlertTitle>
+  <strong>{ error } </strong>
+</Alert> }
           </Box>
         </Box>
+
         </FormControl>
     </Container>
   );

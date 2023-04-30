@@ -3,24 +3,6 @@ import PropTypes from "prop-types";
 import { withStyles, FormControlLabel, Grid, Switch } from "@material-ui/core";
 import axios from "axios";
 
-// const services = [
-//   {
-//     name: "hair care and washing"
-//   },
-//   { name: "haircut" },
-//   { name: "coloring"},
-//   { name: "waving"},
-//   {
-//     name: "straightening",
-
-//   }
-// ];
-// const getInitialState = () => {
-//   return services.reduce((obj, item) => {
-//     obj[item.name] = false;
-//     return obj;
-//   }, {});
-// };
 const style = theme => ({
   root: {
     padding: 8,
@@ -36,7 +18,7 @@ const style = theme => ({
     height: 28
   }
 });
-const SelectService = ({ classes, setService_id }) => {
+const SelectService = ({ classes, setService_id, setService }) => {
 
   const [services, setServices] = useState([])
   const getInitialState = () => {
@@ -46,9 +28,10 @@ const SelectService = ({ classes, setService_id }) => {
     }, {});
 };
   const [serviceSelected, setServiceSelected] = useState(getInitialState());
-  const handleChange = id => e => {
+  const handleChange = (id, service) => e => {
     setServiceSelected({ ...serviceSelected, [id]: e.target.checked });
     setService_id(e.target.value)
+    setService(service)
   }
    
 
@@ -61,7 +44,7 @@ const SelectService = ({ classes, setService_id }) => {
     .then((response) => {
       setServices(response.data)
     })
-  })
+  }, [])
 
   return (
     <Grid
@@ -89,7 +72,7 @@ const SelectService = ({ classes, setService_id }) => {
           <FormControlLabel
             control={
               <Switch
-                onChange={handleChange(service.id)}
+                onChange={handleChange(service.id, service)}
                 value={service.id}
                 color="primary"
               />

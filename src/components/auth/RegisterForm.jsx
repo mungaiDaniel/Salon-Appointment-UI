@@ -10,6 +10,9 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Alert, AlertTitle } from '@mui/material';
+
 
 
 let easing = [0.6, -0.05, 0.01, 0.99];
@@ -25,6 +28,8 @@ const animate = {
 
 const RegisterForm = () => {
 
+  const navigate = useNavigate()
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [lastName, setLastName] = useState("");
@@ -33,6 +38,7 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [error, setError] = useState('')
 
   const RegisterUser = async  () => {
     console.log(lastName, firstName, email, password, location, phoneNumber);
@@ -45,13 +51,13 @@ const RegisterForm = () => {
       location,
       phoneNumber,
     }).then((response) => {
-      if (response.data){
-        window.alert(`${response.data.firstName} is Registered successfully`)
-        return  window.location.assign("http://127.0.0.1:3000/login"); 
-      } else{
-        const err = new Error(`failed to fetch posts: ${response.status}: email ${email} already exist`)
-        window.alert(err);
-      }
+      navigate('/login')
+    }).catch((err) =>{
+      console.log(err)
+      setError('Input error check again')
+              setTimeout(() =>{
+                setError('')
+              }, 4000)
     })
   };
 
@@ -70,6 +76,7 @@ const RegisterForm = () => {
               label="First name"
               value={firstName} 
               onChange={(e) => setFirstName(e.target.value)}
+              required
             />
 
             <TextField
@@ -77,6 +84,7 @@ const RegisterForm = () => {
               label="Last name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </Stack>
 
@@ -92,6 +100,7 @@ const RegisterForm = () => {
             <TextField
               fullWidth
               autoComplete="current-password"
+              required
               type={showPassword ? "text" : "password"}
               label="Password"
               value={password}
@@ -127,6 +136,7 @@ const RegisterForm = () => {
               label="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
 
             />
             </Stack>
@@ -143,12 +153,14 @@ const RegisterForm = () => {
               label="Phone Number"
               value={phoneNumber}
               onChange={(e)=> setPhoneNumber(e.target.value)}
+              required
             />
             <TextField
               fullWidth
               label="location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              required
             />
 
             
@@ -168,6 +180,10 @@ const RegisterForm = () => {
             >
               Sign up
             </LoadingButton>
+            { error && <Alert severity="error">
+  <AlertTitle>Error</AlertTitle>
+  <strong>{ error } </strong>
+</Alert> }
           </Box>
         </Stack>
       </>
