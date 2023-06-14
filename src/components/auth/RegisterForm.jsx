@@ -39,11 +39,12 @@ const RegisterForm = () => {
   const [location, setLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [error, setError] = useState('')
+  const [succes, setSuccess] = useState('')
 
   const RegisterUser = async  () => {
     console.log(lastName, firstName, email, password, location, phoneNumber);
 
-    const resp = await httpClient.post("http://127.0.0.1:5000/users", {
+    const resp = await httpClient.post("https://salon-appointment.onrender.com/api/v1/users", {
       firstName,
       lastName,
       email,
@@ -51,6 +52,11 @@ const RegisterForm = () => {
       location,
       phoneNumber,
     }).then((response) => {
+      setSuccess('Sussessful registered now you can login')
+      setTimeout(() =>{
+        setSuccess('')
+      }, 4000)
+
       navigate('/login')
     }).catch((err) =>{
       console.log(err)
@@ -63,7 +69,7 @@ const RegisterForm = () => {
 
   return (
       <>
-        <Stack spacing={3}>
+        <Stack spacing={3} style={{marginTop: '5rem'}} >
           <Stack
             component={motion.div}
             initial={{ opacity: 0, y: 60 }}
@@ -71,6 +77,10 @@ const RegisterForm = () => {
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
           >
+            { succes && <Alert severity="success">
+  <AlertTitle>Success</AlertTitle>
+  <strong>{ succes } </strong>
+</Alert> }
             <TextField
               fullWidth
               label="First name"

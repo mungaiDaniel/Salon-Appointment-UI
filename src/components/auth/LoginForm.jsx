@@ -42,7 +42,7 @@ const LoginForm = () => {
     console.log(email, password);
 
      await axios
-    .post("http://127.0.0.1:5000/login", {
+    .post("https://salon-appointment.onrender.com/api/v1/login", {
       email,
       password,
     })
