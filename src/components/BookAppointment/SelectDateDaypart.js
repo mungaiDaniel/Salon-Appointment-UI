@@ -34,7 +34,7 @@ function SelectDateDaypart({ classes , setDate, date, time, setTime, setService 
   return (
     <Grid
       container
-      style={{justifyContent:"center"}}
+      style={{justifyContent:"center", fontSize: '0.8rem'}}
       alignItems="center"
       className={classes.root}
     >
@@ -50,7 +50,7 @@ function SelectDateDaypart({ classes , setDate, date, time, setTime, setService 
       <Typography variant="h5" color="primary" style={{marginRight: "370px", marginBottom:"20px"}}>
           Date
         </Typography>
-          <div className={classes.picker} style={{marginBottom: '20px'}}>
+          <div className={classes.picker} style={{marginBottom: '20px', fontSize: '0.8rem'}}>
           <div className="form-input">
                     <input className = "form-input__text form-control" type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
                 </div>

@@ -9,7 +9,7 @@ const Modal = ({ cost, description, duration, style, imgSrc1, hide }) => {
     }
 
   return (
-    <div className="modal show fade" style={modelStyle} >
+    <div className="modal show fade mt-5" style={modelStyle} >
     <div className="modal-dialog">
       <div className="modal-content">
         <div className="modal-header">

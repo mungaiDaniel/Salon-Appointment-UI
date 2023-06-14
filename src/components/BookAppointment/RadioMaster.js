@@ -9,6 +9,8 @@ import {
 } from "@material-ui/core";
 import classNames from "classnames";
 import axios from "axios";
+import { Face } from "@material-ui/icons";
+import { AccountBalance } from "@material-ui/icons";
 
 
 const style = theme => {
@@ -106,7 +108,7 @@ const RadioMasters = ({ classes , setEmployee_id, setEmployee }) => {
   return (
     <Grid
       container
-      style={{justifyContent:"center", height: "100%"}}
+      style={{justifyContent:"center", height: "100%", width: '100%', gap: '1rem', fontSize: '0.5rem'}}
       alignItems="center"
     >
       {users.map((user, i) => (
@@ -131,6 +133,7 @@ const RadioMasters = ({ classes , setEmployee_id, setEmployee }) => {
                 onClick={handleChecked(user.id,user)}
                 className={classes.input}
               />
+              <Face className="mb-4" />
           
             <div
               className={classes.itemInner}
@@ -143,17 +146,6 @@ const RadioMasters = ({ classes , setEmployee_id, setEmployee }) => {
         </Grid>
       ))}
       <Grid item xs={8}>
-        <FormControlLabel
-          name="master"
-          id="none"
-          value={checked === -1 ? "none" : ""}
-          checked={checked === -1}
-          onChange={handleChecked(-1)}
-          control={<Radio color="primary" className="mt-4"  />}
-          label="I have no preferences"
-          labelPlacement="start"
-
-        />
       </Grid>
       <input
         type="text"

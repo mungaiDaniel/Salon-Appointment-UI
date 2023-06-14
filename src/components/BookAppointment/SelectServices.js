@@ -50,9 +50,10 @@ const SelectService = ({ classes, setService_id, setService }) => {
     <Grid
       container
       className={classes.root}
-      style={{justifyContent:"center"}}
+      style={{justifyContent:"center", fontSize: '0.8rem'}}
       alignItems="center"
       spacing={0}
+      
     >
       {services.map((service, i) => (
         <Grid
