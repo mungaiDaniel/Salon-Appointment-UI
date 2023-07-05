@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/salon_api/static/css/main.aca7cd52.css",
+    "main.js": "/salon_api/static/js/main.fe72ef0c.js",
+    "static/js/787.144e820f.chunk.js": "/salon_api/static/js/787.144e820f.chunk.js",
+    "static/media/portrait.jpg": "/salon_api/static/media/portrait.dae1553917678f9cb1f4.jpg",
+    "static/media/pedicurist.jpg": "/salon_api/static/media/pedicurist.9574416ca14945d5fb22.jpg",
+    "static/media/girl.jpg": "/salon_api/static/media/girl.0671c8a5191828b78d7a.jpg",
+    "static/media/hairdress.jpg": "/salon_api/static/media/hairdress.e3291a66c94abdbf4416.jpg",
+    "static/media/female.jpg": "/salon_api/static/media/female.442b7b9184ef6cbd40ca.jpg",
+    "static/media/hairdresser.jpg": "/salon_api/static/media/hairdresser.442b7b9184ef6cbd40ca.jpg",
+    "static/media/manicurist.jpg": "/salon_api/static/media/manicurist.d5afc54bb3a92a9cf0e4.jpg",
+    "static/media/dyeing.jpg": "/salon_api/static/media/dyeing.eee8b22ab8320d630123.jpg",
+    "static/media/womanget.jpg": "/salon_api/static/media/womanget.d530329be300fbc2d663.jpg",
+    "static/media/beautiful.jpg": "/salon_api/static/media/beautiful.ef00125887c5ee3c91a9.jpg",
+    "static/media/map1.jpg": "/salon_api/static/media/map1.3c96e20a2d3514156498.jpg",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/salon_api/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/salon_api/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/salon_api/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/salon_api/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/salon_api/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/pedicure.png": "/salon_api/static/media/pedicure.86cca195e5918c2faa44.png",
+    "static/media/manicure.png": "/salon_api/static/media/manicure.09bdec8ed6fca7eff738.png",
+    "index.html": "/salon_api/index.html",
+    "main.aca7cd52.css.map": "/salon_api/static/css/main.aca7cd52.css.map",
+    "main.fe72ef0c.js.map": "/salon_api/static/js/main.fe72ef0c.js.map",
+    "787.144e820f.chunk.js.map": "/salon_api/static/js/787.144e820f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.aca7cd52.css",
+    "static/js/main.fe72ef0c.js"
+  ]
+}
