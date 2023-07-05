@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
+import { Alert, AlertTitle } from '@mui/material';
+import { Link as RouterLink, useNavigate} from "react-router-dom";
 import {
   FormControl,
   Box,
@@ -34,31 +35,44 @@ const LoginForm = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const navigate = useNavigate()
 
   const LoginUser = async () => {
     console.log(email, password);
 
-    axios
-    .post("http://127.0.0.1:5000/login", {
+     await axios
+    .post("https://salon-appointment.onrender.com/api/v1/login", {
       email,
       password,
     })
     .then((res) =>{
+     localStorage.setItem("user_role", res.data.value.user_role)
      localStorage.setItem("access_token", res.data.value.access_token)
-        if (res.data.value.access_token){
-            window.location.assign("http://127.0.0.1:3000"); 
-            window.alert('welcome')
-        } else{
-            const err = new Error(`failed to fetch posts username or password is incorrect`)
-                window.alert(err);}
+     setSuccess('successfully login')
+     setTimeout(() => {
+      setSuccess('')
+     }, 4000)
+     navigate('/')
         })
-    .catch((err) => console.log(err))
+    .catch((err) => {
+
+      console.log(err)
+      setError('Wrong password or email credentials')
+              setTimeout(() =>{
+                setError('')
+              }, 4000)
+    })
 
   }
 
   return (
     <Container>
+     
+
       <FormControl>
+
         <Box
           component={motion.div}
           animate={{
@@ -67,6 +81,8 @@ const LoginForm = () => {
             },
           }}
         >
+
+
           <Box
             sx={{
               display: "flex",
@@ -148,10 +164,19 @@ const LoginForm = () => {
               variant="contained"
               onClick={() => LoginUser()}
             >
+              { success && <Alert severity="success">
+  <AlertTitle>Success</AlertTitle>
+  <strong>{ success } </strong>
+</Alert> }
               Login
             </LoadingButton>
+            { error && <Alert severity="error">
+  <AlertTitle>Error</AlertTitle>
+  <strong>{ error } </strong>
+</Alert> }
           </Box>
         </Box>
+
         </FormControl>
     </Container>
   );

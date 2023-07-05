@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   withStyles,
   Grid,
@@ -8,37 +8,12 @@ import {
   Tooltip
 } from "@material-ui/core";
 import classNames from "classnames";
-const masters = [
-  {
-    name: "John ",
-    url:
-      "https://randomuser.me/api/portraits/men/11.jpg",
-    tooltipTxt: "haircut, combing, colouring"
-  },
-  {
-    name: "Jane ",
-    url:
-      "https://randomuser.me/api/portraits/women/11.jpg",
-    tooltipTxt: "haircut, combing, colouring"
-  },
-  {
-    name: "Steve ",
-    url:
-      "https://randomuser.me/api/portraits/men/12.jpg",
-    tooltipTxt: "combing, colouring, waving"
-  },
-  {
-    name: "Sara ",
-    url:
-      "https://randomuser.me/api/portraits/women/12.jpg",
-    tooltipTxt: "waving, and straightening hair "
-  }
-];
+import axios from "axios";
+import { Face } from "@material-ui/icons";
+import { AccountBalance } from "@material-ui/icons";
+
+
 const style = theme => {
-  // const active = {
-  //   filter: "grayscale(0)",
-  //   border: `3px solid ${theme.palette.primary.main}`
-  // };
   return {
     root: {},
     mainClass: {
@@ -67,7 +42,7 @@ const style = theme => {
       marginBottom: 16
     },
     //class for checked item
-    checked: {
+    checke: {
       filter: "grayscale(0)",
       border: `3px solid ${theme.palette.primary.main}`
     },
@@ -91,9 +66,27 @@ const style = theme => {
   };
 };
 
-const RadioMasters = ({ classes }) => {
-  const [checked, setChecked] = useState(-1);
-  const handleChecked = i => e => setChecked(i);
+const RadioMasters = ({ classes , setEmployee_id, setEmployee }) => {
+
+  const [users, setUsers] = useState([])
+  const getInitialState = () => {
+    return users.reduce((obj, item) => {
+    obj[item.id] = false;
+    return obj;
+  }, {});
+};
+  const [checked, setChecked] = useState(getInitialState());
+  const handleChecked = (id, user) => e => {
+    setChecked({ ...checked, [id]: e.target.checked});
+    setEmployee_id(e.target.value)
+    console.log(user, '<><><><><><><><><><' ,id);
+    setEmployee(user)
+    
+  };
+
+  const textSelected = Object.keys(checked)
+    .filter(key => checked[key])
+    .join(", ");
   const itemOuterClass = i =>
     classNames({
       [classes.mainClass]: true,
@@ -104,62 +97,60 @@ const RadioMasters = ({ classes }) => {
       [classes.mainLblClass]: true,
       [classes.LblChecked]: checked === i
     });
+
+  useEffect(() => {
+    axios.get("https://salon-appointment.onrender.com/api/v1/employees")
+    .then((response)=>{
+      setUsers(response.data)
+    })
+  }, [])
+
   return (
     <Grid
       container
-      style={{justifyContent:"center", height: "100%"}}
+      style={{justifyContent:"center", height: "100%", width: '100%', gap: '1rem', fontSize: '0.5rem'}}
       alignItems="center"
     >
-      {masters.map((master, i) => (
+      {users.map((user, i) => (
         <Grid
           item
           xs={6}
           sm={3}
-          key={i}
+          key={user.id}
           container
           style={{justifyContent:"center"}}
           alignItems="center"
           direction="column"
         >
           <ButtonBase className={itemOuterClass(i)}>
-            <Tooltip title={master.tooltipTxt} placement="top-end">
+            
               <input
                 type="radio"
                 name="master"
-                id={master.name}
-                value={checked === i && master.name}
-                checked={checked === i}
-                onChange={handleChecked(i)}
+                id={user.id}
+                value={user.id}
+                checked={checked}
+                onClick={handleChecked(user.id,user)}
                 className={classes.input}
               />
-            </Tooltip>
+              <Face className="mb-4" />
+          
             <div
               className={classes.itemInner}
-              style={{ backgroundImage: `url(${master.url})` }}
+              // style={{ backgroundImage: `url(${master.url})` }}
             />
           </ButtonBase>
-          <label htmlFor={master.name} className={labelClass(i)}>
-            {master.name}
+          <label htmlFor={user.id} className={labelClass(i)}>
+            {user.firstName}
           </label>
         </Grid>
       ))}
       <Grid item xs={8}>
-        <FormControlLabel
-          name="master"
-          id="none"
-          value={checked === -1 ? "none" : ""}
-          checked={checked === -1}
-          onChange={handleChecked(-1)}
-          control={<Radio color="primary" className="mt-4"  />}
-          label="I have no preferences"
-          labelPlacement="start"
-
-        />
       </Grid>
       <input
         type="text"
         name="selected master"
-        value={checked > -1 ? masters[checked].name : "none"}
+        value={textSelected}
         style={{ width: 1, height: 1, opacity: 0.1 }}
         readOnly
       />

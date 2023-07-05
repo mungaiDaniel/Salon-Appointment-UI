@@ -1,67 +1,76 @@
-import React from 'react'
-import { Avatar, Box , Divider, Grid, List, ListItem, ListItemAvatar, ListItemText, Typography } from '@material-ui/core'
-import { AccountBalance, Person } from '@material-ui/icons'
+import React, { useState } from "react";
+import {
+  withStyles,
+  Grid,
+  ButtonBase,
+  FormControlLabel,
+  Radio,
+  Tooltip
+} from "@material-ui/core";
+import classNames from "classnames";
 
-const user = [	{
-    "Email": "Danitomonga@gmail.com",
-    "FirstName": "Daniel",
-    "Id": 1,
-    "LastName": "Mungai",
-    "Location": "Uthiru, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 727980611
-},
-{
-    "Email": "Peninahmukiri@gmail.com",
-    "FirstName": "Peninah",
-    "Id": 2,
-    "LastName": "Mukiri",
-    "Location": "muthiga, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 71234567
-},
-{
-    "Email": "Danitomonga@gmail.com",
-    "FirstName": "Daniel",
-    "Id": 1,
-    "LastName": "Mungai",
-    "Location": "Uthiru, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 727980611
-},
-{
-    "Email": "Peninahmukiri@gmail.com",
-    "FirstName": "Peninah",
-    "Id": 2,
-    "LastName": "Mukiri",
-    "Location": "muthiga, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 71234567
-},
-{
-    "Email": "Danitomonga@gmail.com",
-    "FirstName": "Daniel",
-    "Id": 1,
-    "LastName": "Mungai",
-    "Location": "Uthiru, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 727980611
-},
-{
-    "Email": "Peninahmukiri@gmail.com",
-    "FirstName": "Peninah",
-    "Id": 2,
-    "LastName": "Mukiri",
-    "Location": "muthiga, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 71234567
-}
-]
+
+const style = theme => {
+  // const active = {
+  //   filter: "grayscale(0)",
+  //   border: `3px solid ${theme.palette.primary.main}`
+  // };
+  return {
+    root: {},
+    mainClass: {
+      height: 106,
+      width: 106,
+      borderRadius: "50%",
+      boxShadow: theme.shadows[5],
+      margin: 8,
+      color: theme.palette.primary.light,
+      border: `3px solid ${theme.palette.common.white}`,
+      filter: "grayscale(1)",
+      transition: theme.transitions.create(),
+      "&:active": {
+        filter: "grayscale(0)",
+        border: `3px solid ${theme.palette.primary.main}`
+      },
+      "&:hover": {
+        filter: "grayscale(0)",
+        border: `3px solid ${theme.palette.secondary.main}`
+      }
+    },
+    mainLblClass: {
+      color: theme.palette.grey[700],
+      textTransform: "uppercase",
+      letterSpacing: 1,
+      marginBottom: 16
+    },
+    //class for checked item
+    checked: {
+      filter: "grayscale(0)",
+      border: `3px solid ${theme.palette.primary.main}`
+    },
+    LblChecked: { color: theme.palette.primary.main },
+    itemInner: {
+      height: 66,
+      width: 66,
+      borderRadius: "50%",
+      backgroundSize: "cover",
+      backgroundPosition: "center center",
+      boxShadow: theme.shadows[9]
+    },
+    input: {
+      height: 106,
+      width: 106,
+      position: "absolute",
+      top: -6,
+      left: -6,
+      opacity: 0
+    }
+  };
+};
 
 const NewBookings = () => {
   return (
     <div className='bg-light  '>
-      <Box className='m-5'>
+      {/* <Box className='m-5'>
          <Typography variant='h5' color='warning' align='center' > 
             New bookings
          </Typography>
@@ -84,7 +93,7 @@ const NewBookings = () => {
             ))}
          </List>
          </Box>
-      </Box>
+      </Box> */}
     </div>
   )
 }

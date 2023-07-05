@@ -1,8 +1,8 @@
-
+import './styles/Stylist.scss';
 
 const Stylist = () => {
   return (
-    <div className="container-fliud bg-dark p-4" id="stylist">
+    <div className="container-fliud styles bg-dark " id="stylist">
       <h2 class="text-center text-white">Our Stylists</h2>
         <p class="lead text-center text-white mb-5">
           Our Stylists all have 5+ years working as Hair Stylists in the

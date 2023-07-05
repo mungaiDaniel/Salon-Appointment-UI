@@ -10,6 +10,9 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Alert, AlertTitle } from '@mui/material';
+
 
 
 let easing = [0.6, -0.05, 0.01, 0.99];
@@ -25,6 +28,8 @@ const animate = {
 
 const RegisterForm = () => {
 
+  const navigate = useNavigate()
+
   const [showPassword, setShowPassword] = useState(false);
 
   const [lastName, setLastName] = useState("");
@@ -33,24 +38,38 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [error, setError] = useState('')
+  const [succes, setSuccess] = useState('')
 
   const RegisterUser = async  () => {
     console.log(lastName, firstName, email, password, location, phoneNumber);
 
-    const resp = await httpClient.post("http://127.0.0.1:5000/users", {
+    const resp = await httpClient.post("https://salon-appointment.onrender.com/api/v1/users", {
       firstName,
       lastName,
       email,
       password,
       location,
       phoneNumber,
+    }).then((response) => {
+      setSuccess('Sussessful registered now you can login')
+      setTimeout(() =>{
+        setSuccess('')
+      }, 4000)
+
+      navigate('/login')
+    }).catch((err) =>{
+      console.log(err)
+      setError('Input error check again')
+              setTimeout(() =>{
+                setError('')
+              }, 4000)
     })
-    console.log(resp.data);
   };
 
   return (
       <>
-        <Stack spacing={3}>
+        <Stack spacing={3} style={{marginTop: '5rem'}} >
           <Stack
             component={motion.div}
             initial={{ opacity: 0, y: 60 }}
@@ -58,11 +77,13 @@ const RegisterForm = () => {
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
           >
+            
             <TextField
               fullWidth
               label="First name"
               value={firstName} 
               onChange={(e) => setFirstName(e.target.value)}
+              required
             />
 
             <TextField
@@ -70,6 +91,7 @@ const RegisterForm = () => {
               label="Last name"
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </Stack>
 
@@ -85,6 +107,7 @@ const RegisterForm = () => {
             <TextField
               fullWidth
               autoComplete="current-password"
+              required
               type={showPassword ? "text" : "password"}
               label="Password"
               value={password}
@@ -120,6 +143,7 @@ const RegisterForm = () => {
               label="Email address"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              required
 
             />
             </Stack>
@@ -136,12 +160,14 @@ const RegisterForm = () => {
               label="Phone Number"
               value={phoneNumber}
               onChange={(e)=> setPhoneNumber(e.target.value)}
+              required
             />
             <TextField
               fullWidth
               label="location"
               value={location}
               onChange={(e) => setLocation(e.target.value)}
+              required
             />
 
             
@@ -152,6 +178,10 @@ const RegisterForm = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={animate}
           >
+            { succes && <Alert severity="success">
+  <AlertTitle>Success</AlertTitle>
+  <strong>{ succes } </strong>
+</Alert> }
             <LoadingButton
               fullWidth
               size="large"
@@ -161,6 +191,10 @@ const RegisterForm = () => {
             >
               Sign up
             </LoadingButton>
+            { error && <Alert severity="error">
+  <AlertTitle>Error</AlertTitle>
+  <strong>{ error } </strong>
+</Alert> }
           </Box>
         </Stack>
       </>

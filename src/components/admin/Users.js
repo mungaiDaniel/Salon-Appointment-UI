@@ -1,92 +1,91 @@
-import React from 'react'
-import { Avatar, Box , Divider, List, ListItem, ListItemAvatar, ListItemText, Typography, Switch } from '@material-ui/core'
-import { Person } from '@material-ui/icons'
+import axios from 'axios'
+import React, {useState, useEffect} from 'react'
+import { Table } from 'react-bootstrap'
+import Form from 'react-bootstrap/Form';
+import { Alert, AlertTitle } from '@mui/material';
 
-const user = [	{
-    "Email": "Danitomonga@gmail.com",
-    "FirstName": "Daniel",
-    "Id": 1,
-    "LastName": "Mungai",
-    "Location": "Uthiru, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 727980611
-},
-{
-    "Email": "Peninahmukiri@gmail.com",
-    "FirstName": "Peninah",
-    "Id": 2,
-    "LastName": "Mukiri",
-    "Location": "muthiga, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 71234567
-},
-{
-    "Email": "Danitomonga@gmail.com",
-    "FirstName": "Daniel",
-    "Id": 1,
-    "LastName": "Mungai",
-    "Location": "Uthiru, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 727980611
-},
-{
-    "Email": "Peninahmukiri@gmail.com",
-    "FirstName": "Peninah",
-    "Id": 2,
-    "LastName": "Mukiri",
-    "Location": "muthiga, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 71234567
-},
-{
-    "Email": "Danitomonga@gmail.com",
-    "FirstName": "Daniel",
-    "Id": 1,
-    "LastName": "Mungai",
-    "Location": "Uthiru, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 727980611
-},
-{
-    "Email": "Peninahmukiri@gmail.com",
-    "FirstName": "Peninah",
-    "Id": 2,
-    "LastName": "Mukiri",
-    "Location": "muthiga, Waiyaki way",
-    "Password": "12345",
-    "PhoneNumber": 71234567
-}
-]
-const label = { inputProps: { 'aria-label': 'Switch demo' } };
+
 const Users = () => {
-  return (
-    <div className='bg-light '>
-      <Box className='m-5 '>
-         <Typography variant='h5' color='warning' align='center' > 
-            My Users
-         </Typography>
-         <Box className='mx-5'>
-         <List disablePadding> 
-            {user.map((text, index)=>(
-                <>
-                <ListItem key={index} button >
-                    <ListItemAvatar>
-                        <Avatar>
-                            <Person/>
-                        </Avatar>
-                    </ListItemAvatar>
-                   
-                    <ListItemText primary={text.FirstName} secondary={text.PhoneNumber}>
+    const [services, setServices] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
+    const [superAdmin, setSuperAdmin] = useState([])
+    const [success, setSuccess] = useState('')
 
-                    </ListItemText>
-                    <Switch {...label}/>
-                </ListItem>
-                <Divider />
-                </>
-            ))}
-         </List>
-         </Box>
-      </Box>
+    useEffect(() => {
+        axios.get("https://salon-appointment.onrender.com/api/v1/users")
+        .then((response) =>{
+            setServices(response.data)
+            setIsLoading(false)
+        } )
+    }, [] )
+
+    if (isLoading){
+        return <h2>Loading....</h2>
+    }
+
+    const MakesuperAdmin = (e) =>{
+        axios.put("https://salon-appointment.onrender.com/api/v1/" + e.target.value)
+        .then((res) =>{
+            setSuperAdmin(res.data)
+            setSuccess('Successfully Updated')
+            setTimeout(() => {
+                setSuccess('')
+              }, 5000);
+        })
+    }
+
+  return (
+    <div className=" p-5 p-lg-0 pt-lg-5 text-center text-sm-start " style={{
+        overflow: "auto",
+        whiteSpace: "nowrap",
+        fontSize:'0.8rem'
+    }} >
+        {success && <Alert severity="success">
+  <AlertTitle>success</AlertTitle>
+   { success } — <strong>Thank you</strong>
+ </Alert>}
+        
+        <h2 className='text-primary mt-3'>Registered Users</h2>
+        <br/>
+        <Table striped bordered hover>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Second Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Location</th>
+                    <th>Status</th>
+                    <th>Promote User</th>
+
+                </tr>
+            </thead>
+            <tbody>
+            {
+                services.map(item => {
+                    
+                    return <tr>
+                            <td>{item.id}</td>
+                            <td>{item.firstName}</td>
+                            <td>{item.lastName}</td>
+                            <td>{item.email}</td>
+                            <td>{item.phoneNumber}</td>
+                            <td>{item.location}</td>
+                            <td>{item.user_role}</td>
+                            <td>
+                            <Form.Select style={{fontSize:'0.8rem'}} className='form-control col-md-3' onChange={MakesuperAdmin}>
+                                <option value="0">--select user role--</option>
+                                <option key={item.id} value={item.id} >super_admin</option>
+                                 <option key={item.id} value={item.id} >admin</option>
+                            </Form.Select>
+                            </td>
+                        </tr>
+                   
+                })
+            }
+            </tbody>
+        </Table>
     </div>
   )
 }

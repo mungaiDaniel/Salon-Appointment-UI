@@ -12,13 +12,14 @@ import RadioMaster from "./RadioMaster";
 import SelectServices from "./SelectServices";
 import SelectDateDaypart from "./SelectDateDaypart";
 import Contacts from "./Contacts";
+import httpClient from "../../httpClient";
 
 const style = theme => ({
     root: {
       border: `8px solid ${theme.palette.common.white}`,
       margin: 36,
       padding: "36px 0 0",
-      width: '700px',
+      width: '1000px',
       background: `rgba(255,255,255,0.9)`,
       boxShadow: `1px -1px 1px ${
         theme.palette.primary.light
@@ -43,13 +44,46 @@ const style = theme => ({
 
   const Content = ({ classes }) => {
     const [activeStep, setActiveStep] = useState(0);
-    const handleChange = index => e => setActiveStep(index);
+
+    
     const nandleNext = () => setActiveStep(activeStep + 1);
     const nandlePrev = () => setActiveStep(activeStep - 1);
     const tabs = ["Master", "Service", "Date", "Contact"];
-  
+    const [employee_id, setEmployee_id] = useState("")
+    const [employee, setEmployee] = useState("")
+    const [service_id, setService_id] = useState("")
+    const [service, setService] = useState("")
+    const [date, setDate] = useState("")
+    const [time, setTime] = useState("")
+    
+    const BookAppointment = async () => {
+
+      console.log(
+        employee_id, service_id, date, time
+      )
+      const resp = await httpClient.post("https://salon-appointment.onrender.com/api/v1/booking", {
+        employee_id,
+        service_id,
+        date,
+        time,
+      },
+      {
+        
+          headers:
+          {
+              Authorization : `Bearer ${localStorage.getItem("access_token")}`,
+              
+          }
+        
+      })
+      console.log(resp.data)
+    }
+    const handleChange = index => e => {
+      setActiveStep(index)
+    };
+
     return (
-      <Paper style={{}} elevation={1} className='lead p-5 w-100 w-sm-50 w-md-50 vw-lg-100' >
+      <Paper elevation={1} className='lead p-5 w-100 w-sm-50 w-md-50 vw-lg-100' >
         <Typography
           variant="h4"
           gutterBottom
@@ -69,10 +103,10 @@ const style = theme => ({
   
         <form>
           <SwipeableViews index={activeStep} onChangeIndex={handleChange}>
-            <RadioMaster />
-            <SelectServices />
-            <SelectDateDaypart />
-            <Contacts />
+            <RadioMaster setEmployee_id={setEmployee_id} setEmployee={setEmployee}/>
+            <SelectServices setService_id={setService_id} setService={setService}/>
+            <SelectDateDaypart date={date} setDate={setDate} time={time} setTime={setTime}/>
+          <Contacts employee_id={employee_id} service_id={service_id} date={date} time={time}  employee={employee} service={service}/>
           </SwipeableViews>
           <Grid
             container
@@ -102,12 +136,14 @@ const style = theme => ({
                 </Button>
               </Grid>
             )}
-            {activeStep === tabs.length - 1 && (
+            {activeStep === tabs.length -1 && (
               <Grid item>
                 <Button
                   color="primary"
+                  type="submit"
                   className={classes.navigation}
                   variant="contained"
+                  onClick={(BookAppointment())}
                 >
                   Submit
                 </Button>

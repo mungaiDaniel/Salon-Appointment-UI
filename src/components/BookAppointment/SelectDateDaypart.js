@@ -1,15 +1,17 @@
 import React, { useState } from "react";
-import { DatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { DatePicker, KeyboardDatePicker ,MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { Typography} from '@material-ui/core';
 import {
   withStyles,
   Grid,
   RadioGroup,
   FormControlLabel,
-  Radio
+  Radio,
+  TextField
 } from "@material-ui/core";
 
-const dayparts = ["morning", "noon", "evening", "nomatter"];
+
 
 const styles = theme => {
   return {
@@ -26,15 +28,12 @@ const styles = theme => {
     }
   };
 };
-function SelectDateDaypart({ classes }) {
-  const [selectedDate, handleDateChange] = useState(new Date());
-  const [selectedDaypart, setDaypart] = useState("nomatter");
-  const handleDaypartChange = e => setDaypart(e.target.value);
+function SelectDateDaypart({ classes , setDate, date, time, setTime, setService }) {
 
   return (
     <Grid
       container
-      style={{justifyContent:"center"}}
+      style={{justifyContent:"center", fontSize: '0.8rem'}}
       alignItems="center"
       className={classes.root}
     >
@@ -47,20 +46,15 @@ function SelectDateDaypart({ classes }) {
         </svg>
       </Grid>
       <Grid item xs={10}>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <div className={classes.picker} style={{marginBottom: '20px'}}>
-            <DatePicker
-              inputProps={{ id: "date" }}
-              value={selectedDate}
-              disablePast
-              autoOk
-              onChange={handleDateChange}
-              name="date"
-              fullWidth
-              variant="filled"
-            />
+      <Typography variant="h5" color="primary" style={{marginRight: "370px", marginBottom:"20px"}}>
+          Date
+        </Typography>
+          <div className={classes.picker} style={{marginBottom: '20px', fontSize: '0.8rem'}}>
+          <div className="form-input">
+                    <input className = "form-input__text form-control" type="date" value={date} onChange={(e) => setDate(e.target.value)}/>
+                </div>
           </div>
-        </MuiPickersUtilsProvider>
+      
       </Grid>
       <Grid item xs={2}>
         <svg
@@ -71,23 +65,12 @@ function SelectDateDaypart({ classes }) {
         </svg>
       </Grid>
       <Grid item xs={10}>
-        <RadioGroup
-          name="daypart"
-          value={selectedDaypart}
-          onChange={handleDaypartChange}
-          row
-        >
-          {dayparts.map(part => (
-            <FormControlLabel
-              key={part}
-              value={part}
-              control={<Radio color="primary" className="p-4 m-0"/>}
-              label={part}
-              labelPlacement="bottom"
-              checked={selectedDaypart === part}
-            />
-          ))}
-        </RadioGroup>
+      <Typography variant="h5" color="primary" style={{marginRight: "370px", marginBottom:"20px"}} >
+          Time
+        </Typography>
+        <div className="form-input">
+                    <input className = "form-input__text form-control" type="time" value={time} onChange={(e) => setTime(e.target.value)}/>
+                </div>
       </Grid>
     </Grid>
   );
