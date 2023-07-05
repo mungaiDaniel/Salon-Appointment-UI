@@ -7,11 +7,12 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles, ThemeProvider, createTheme } from '@material-ui/core/styles';
 import { orange } from '@mui/material/colors';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import React from 'react';
 import Badge from "@material-ui/core/Badge";
 import Menu from "@material-ui/core/Menu";
 import MenuItem from "@material-ui/core/MenuItem";
+import { useEffect } from 'react' 
 const useStyles = makeStyles((theme) => ({
  
     title: {
@@ -41,10 +42,19 @@ const theme = createTheme({
     }
   })
 
-const NavBar = () => {
+const NavBar = ({ }) => {
     const classes = useStyles();
+    const navigate = useNavigate();
+    const token = ''
+    const logout = () =>{
+      window.localStorage.removeItem('access_token')
+      window.localStorage.removeItem('user_role')
+      navigate('/login')
+    }
+
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -53,9 +63,10 @@ const NavBar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  
   return (
     <div className={classes.root}>
-    <AppBar className='navbar navbar-expand-lg bg-warning navbar-dark py-0 mb-1' position='static'>
+    <AppBar className='navbar navbar-expand-lg bg-warning navbar-dark py-0 mb-1'>
         <Container>
         <Typography>
         <Link to="/" className='navbar-brand text-dark'>Salon Gerente</Link>
@@ -106,19 +117,31 @@ const NavBar = () => {
             autoFocus
             className='m-2'
           >
-            <Link to="/login" className={classes.links}>
+            {
+              window.localStorage.getItem('access_token') ? 
+              (<MenuItem onClick={logout}>Logout</MenuItem>) 
+              :
+              (<Link to="/login" className={classes.links}>
               <MenuItem onClick={handleClose}>Login</MenuItem>
-            </Link>
-            <Link to="/register" className={classes.links}>
+            </Link>)
+            }
+           
+           {
+            window.localStorage.getItem('access_token') ? (<Link to="/testimony" className={classes.links}>
+            <MenuItem onClick={handleClose}>Testimonies</MenuItem>
+          </Link>) : (<Link to="/register" className={classes.links}>
               <MenuItem onClick={handleClose}>Register</MenuItem>
-            </Link>
-            <Link to="/testimony" className={classes.links}>
-              <MenuItem onClick={handleClose}>Testimonies</MenuItem>
-            </Link>
-            <Link to="/admin" className={classes.links}>
-              <MenuItem onClick={handleClose}>Admin</MenuItem>
-            </Link>
-            <MenuItem onClick={handleClose}>Logout</MenuItem>
+            </Link>)
+           }
+
+           {
+            window.localStorage.getItem('user_role')  && (<Link to="/admin" className={classes.links}>
+            <MenuItem onClick={handleClose}>Admin</MenuItem>
+          </Link>)
+           }
+             
+            
+            
           </Menu>
          
      

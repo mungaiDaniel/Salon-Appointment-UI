@@ -2,13 +2,15 @@ import React from 'react'
 import Navdrower from './Navdrower'
 import Bookings from './Bookings'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
+import './styles.css'
 
 const AdminPage = () => {
   return (
-    <div>
-      
-    </div>
+    <div className="app">
+    <div className='wizard'>
+      <Bookings/>
+      </div>
+  </div>
   )
 }
 

@@ -1,7 +1,5 @@
-import * as Yup from "yup";
 import { useState } from "react";
-import { useFormik, Form, FormikProvider } from "formik";
-import { useNavigate } from "react-router-dom";
+import httpClient from "../../httpClient";
 import {
   Stack,
   Box,
@@ -12,8 +10,11 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import { Alert, AlertTitle } from '@mui/material';
 
-/////////////////////////////////////////////////////////////
+
+
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
   opacity: 1,
@@ -25,48 +26,50 @@ const animate = {
   },
 };
 
-const RegisterForm = ({ setAuth }) => {
-  const navigate = useNavigate();
+const RegisterForm = () => {
+
+  const navigate = useNavigate()
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const SignupSchema = Yup.object().shape({
-    firstName: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("First name required"),
-    lastName: Yup.string()
-      .min(2, "Too Short!")
-      .max(50, "Too Long!")
-      .required("Last name required"),
-    email: Yup.string()
-      .email("Email must be a valid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
-  });
+  const [lastName, setLastName] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [location, setLocation] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [error, setError] = useState('')
+  const [succes, setSuccess] = useState('')
 
-  const formik = useFormik({
-    initialValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-    },
-    validationSchema: SignupSchema,
-    onSubmit: () => {
-      setTimeout(() => {
-        setAuth(true);
-        navigate("/", { replace: true });
-      }, 2000);
-    },
-  });
+  const RegisterUser = async  () => {
+    console.log(lastName, firstName, email, password, location, phoneNumber);
 
-  const { errors, touched, handleSubmit, isSubmitting, getFieldProps } = formik;
+    const resp = await httpClient.post("https://salon-appointment.onrender.com/api/v1/users", {
+      firstName,
+      lastName,
+      email,
+      password,
+      location,
+      phoneNumber,
+    }).then((response) => {
+      setSuccess('Sussessful registered now you can login')
+      setTimeout(() =>{
+        setSuccess('')
+      }, 4000)
+
+      navigate('/login')
+    }).catch((err) =>{
+      console.log(err)
+      setError('Input error check again')
+              setTimeout(() =>{
+                setError('')
+              }, 4000)
+    })
+  };
 
   return (
-    <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
-        <Stack spacing={3}>
+      <>
+        <Stack spacing={3} style={{marginTop: '5rem'}} >
           <Stack
             component={motion.div}
             initial={{ opacity: 0, y: 60 }}
@@ -74,45 +77,41 @@ const RegisterForm = ({ setAuth }) => {
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
           >
+            
             <TextField
               fullWidth
               label="First name"
-              {...getFieldProps("firstName")}
-              error={Boolean(touched.firstName && errors.firstName)}
-              helperText={touched.firstName && errors.firstName}
+              value={firstName} 
+              onChange={(e) => setFirstName(e.target.value)}
+              required
             />
 
             <TextField
               fullWidth
               label="Last name"
-              {...getFieldProps("lastName")}
-              error={Boolean(touched.lastName && errors.lastName)}
-              helperText={touched.lastName && errors.lastName}
+              value={lastName}
+              onChange={(e) => setLastName(e.target.value)}
+              required
             />
           </Stack>
 
-          <Stack
+        
+            <Stack
             spacing={3}
             component={motion.div}
             initial={{ opacity: 0, y: 40 }}
             animate={animate}
-          >
-            <TextField
-              fullWidth
-              autoComplete="username"
-              type="email"
-              label="Email address"
-              {...getFieldProps("email")}
-              error={Boolean(touched.email && errors.email)}
-              helperText={touched.email && errors.email}
-            />
+            >
+            
 
             <TextField
               fullWidth
               autoComplete="current-password"
+              required
               type={showPassword ? "text" : "password"}
               label="Password"
-              {...getFieldProps("password")}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -129,9 +128,49 @@ const RegisterForm = ({ setAuth }) => {
                   </InputAdornment>
                 ),
               }}
-              error={Boolean(touched.password && errors.password)}
-              helperText={touched.password && errors.password}
             />
+          </Stack>
+          <Stack
+            spacing={3}
+            component={motion.div}
+            initial={{ opacity: 0, y: 40 }}
+            animate={animate}
+          >
+            <TextField
+              fullWidth
+              autoComplete="username"
+              type="email"
+              label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+
+            />
+            </Stack>
+          <Stack
+            component={motion.div}
+            initial={{ opacity: 0, y: 60 }}
+            animate={animate}
+            direction={{ xs: "column", sm: "row" }}
+            spacing={2}
+          >
+
+            <TextField
+              fullWidth
+              label="Phone Number"
+              value={phoneNumber}
+              onChange={(e)=> setPhoneNumber(e.target.value)}
+              required
+            />
+            <TextField
+              fullWidth
+              label="location"
+              value={location}
+              onChange={(e) => setLocation(e.target.value)}
+              required
+            />
+
+            
           </Stack>
 
           <Box
@@ -139,19 +178,27 @@ const RegisterForm = ({ setAuth }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={animate}
           >
+            { succes && <Alert severity="success">
+  <AlertTitle>Success</AlertTitle>
+  <strong>{ succes } </strong>
+</Alert> }
             <LoadingButton
               fullWidth
               size="large"
               type="submit"
               variant="contained"
-              loading={isSubmitting}
+              onClick={() => RegisterUser()}
             >
               Sign up
             </LoadingButton>
+            { error && <Alert severity="error">
+  <AlertTitle>Error</AlertTitle>
+  <strong>{ error } </strong>
+</Alert> }
           </Box>
         </Stack>
-      </Form>
-    </FormikProvider>
+      </>
+
   );
 };
 

@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Link as RouterLink, useLocation, useNavigate } from "react-router-dom";
-import { Form, FormikProvider, useFormik } from "formik";
-import * as Yup from "yup";
-
+import { Alert, AlertTitle } from '@mui/material';
+import { Link as RouterLink, useNavigate} from "react-router-dom";
 import {
+  FormControl,
   Box,
   Checkbox,
   FormControlLabel,
@@ -17,6 +16,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -29,44 +29,50 @@ const animate = {
   },
 };
 
-const LoginForm = ({ setAuth }) => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const from = location.state?.from?.pathname || "/";
 
+const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
-  const LoginSchema = Yup.object().shape({
-    email: Yup.string()
-      .email("Provide a valid email address")
-      .required("Email is required"),
-    password: Yup.string().required("Password is required"),
-  });
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
+  const navigate = useNavigate()
 
-  const formik = useFormik({
-    initialValues: {
-      email: "",
-      password: "",
-      remember: true,
-    },
-    validationSchema: LoginSchema,
-    onSubmit: () => {
-      console.log("submitting...");
-      setTimeout(() => {
-        console.log("submited!!");
-        setAuth(true);
-        navigate(from, { replace: true });
-      }, 2000);
-    },
-  });
+  const LoginUser = async () => {
+    console.log(email, password);
 
-  const { errors, touched, values, isSubmitting, handleSubmit, getFieldProps } =
-    formik;
+     await axios
+    .post("https://salon-appointment.onrender.com/api/v1/login", {
+      email,
+      password,
+    })
+    .then((res) =>{
+     localStorage.setItem("user_role", res.data.value.user_role)
+     localStorage.setItem("access_token", res.data.value.access_token)
+     setSuccess('successfully login')
+     setTimeout(() => {
+      setSuccess('')
+     }, 4000)
+     navigate('/')
+        })
+    .catch((err) => {
+
+      console.log(err)
+      setError('Wrong password or email credentials')
+              setTimeout(() =>{
+                setError('')
+              }, 4000)
+    })
+
+  }
 
   return (
     <Container>
-    <FormikProvider value={formik}>
-      <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
+     
+
+      <FormControl>
+
         <Box
           component={motion.div}
           animate={{
@@ -75,6 +81,8 @@ const LoginForm = ({ setAuth }) => {
             },
           }}
         >
+
+
           <Box
             sx={{
               display: "flex",
@@ -90,9 +98,8 @@ const LoginForm = ({ setAuth }) => {
               autoComplete="username"
               type="email"
               label="Email Address"
-              {...getFieldProps("email")}
-              error={Boolean(touched.email && errors.email)}
-              helperText={touched.email && errors.email}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
 
             <TextField
@@ -100,9 +107,8 @@ const LoginForm = ({ setAuth }) => {
               autoComplete="current-password"
               type={showPassword ? "text" : "password"}
               label="Password"
-              {...getFieldProps("password")}
-              error={Boolean(touched.password && errors.password)}
-              helperText={touched.password && errors.password}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -135,8 +141,6 @@ const LoginForm = ({ setAuth }) => {
               <FormControlLabel
                 control={
                   <Checkbox
-                    {...getFieldProps("remember")}
-                    checked={values.remember}
                     className="me-2 mt-lg-2"
                   />
                 }
@@ -158,14 +162,22 @@ const LoginForm = ({ setAuth }) => {
               size="large"
               type="submit"
               variant="contained"
-              loading={isSubmitting}
+              onClick={() => LoginUser()}
             >
-              {isSubmitting ? "loading..." : "Login"}
+              { success && <Alert severity="success">
+  <AlertTitle>Success</AlertTitle>
+  <strong>{ success } </strong>
+</Alert> }
+              Login
             </LoadingButton>
+            { error && <Alert severity="error">
+  <AlertTitle>Error</AlertTitle>
+  <strong>{ error } </strong>
+</Alert> }
           </Box>
         </Box>
-      </Form>
-    </FormikProvider>
+
+        </FormControl>
     </Container>
   );
 };
