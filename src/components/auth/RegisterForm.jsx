@@ -77,10 +77,7 @@ const RegisterForm = () => {
             direction={{ xs: "column", sm: "row" }}
             spacing={2}
           >
-            { succes && <Alert severity="success">
-  <AlertTitle>Success</AlertTitle>
-  <strong>{ succes } </strong>
-</Alert> }
+            
             <TextField
               fullWidth
               label="First name"
@@ -181,6 +178,10 @@ const RegisterForm = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={animate}
           >
+            { succes && <Alert severity="success">
+  <AlertTitle>Success</AlertTitle>
+  <strong>{ succes } </strong>
+</Alert> }
             <LoadingButton
               fullWidth
               size="large"

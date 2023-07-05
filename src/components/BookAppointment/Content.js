@@ -61,7 +61,7 @@ const style = theme => ({
       console.log(
         employee_id, service_id, date, time
       )
-      const resp = await httpClient.post("http://127.0.0.1:5000/booking", {
+      const resp = await httpClient.post("https://salon-appointment.onrender.com/api/v1/booking", {
         employee_id,
         service_id,
         date,
@@ -71,7 +71,8 @@ const style = theme => ({
         
           headers:
           {
-              Authorization : `Bearer ${localStorage.getItem("access_token")}`
+              Authorization : `Bearer ${localStorage.getItem("access_token")}`,
+              
           }
         
       })

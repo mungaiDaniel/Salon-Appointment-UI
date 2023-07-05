@@ -12,6 +12,8 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { LoadingButton } from "@mui/lab";
 import httpClient from '../../httpClient';
 import AllServices from './AllServices';
+import { useState } from "react";
+import { Alert, AlertTitle } from '@mui/material';
 
 
 
@@ -49,11 +51,13 @@ const Servicesoffered = () => {
   const [cost, setCost] = React.useState("")
   const [duration, setDuration] = React.useState("")
   const [description, setDescription] = React.useState("")
+  const [error, setError] = useState('')
+
 
   const AddService = async () => {
     console.log(style, cost, duration, description);
 
-    const resp = await httpClient.post("http://127.0.0.1:5000/stylings", {
+    const resp = await httpClient.post("https://salon-appointment.onrender.com/api/v1/stylings", {
       style,
       cost,
       duration,
@@ -69,6 +73,11 @@ const Servicesoffered = () => {
         if(res.resp.data){
           window.alert('success')
         }
+    }).catch((err) =>{
+      setError('NOT ADMIN')
+              setTimeout(() =>{
+                setError('')
+              }, 4000)
     })
     console.log(resp.data)
   };
@@ -182,6 +191,10 @@ const Servicesoffered = () => {
               Add Service
             </LoadingButton>
           </Box>
+          { error && <Alert severity="error">
+  <AlertTitle>Error</AlertTitle>
+  <strong>{ error } </strong>
+</Alert> }
           
           
   </Stack>

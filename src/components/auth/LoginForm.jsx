@@ -36,6 +36,7 @@ const LoginForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState('')
+  const [success, setSuccess] = useState('')
   const navigate = useNavigate()
 
   const LoginUser = async () => {
@@ -49,6 +50,10 @@ const LoginForm = () => {
     .then((res) =>{
      localStorage.setItem("user_role", res.data.value.user_role)
      localStorage.setItem("access_token", res.data.value.access_token)
+     setSuccess('successfully login')
+     setTimeout(() => {
+      setSuccess('')
+     }, 4000)
      navigate('/')
         })
     .catch((err) => {
@@ -159,6 +164,10 @@ const LoginForm = () => {
               variant="contained"
               onClick={() => LoginUser()}
             >
+              { success && <Alert severity="success">
+  <AlertTitle>Success</AlertTitle>
+  <strong>{ success } </strong>
+</Alert> }
               Login
             </LoadingButton>
             { error && <Alert severity="error">

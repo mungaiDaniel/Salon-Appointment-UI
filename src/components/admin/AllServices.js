@@ -10,7 +10,7 @@ const AllServices = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        axios.get("http://127.0.0.1:5000/stylings")
+        axios.get("https://salon-appointment.onrender.com/api/v1/stylings")
         .then((response) =>{
             setServices(response.data)
             setIsLoading(false)
@@ -36,7 +36,7 @@ const AllServices = () => {
             </thead>
             <tbody>
             {
-                services.map(item => {
+                services.map((item, key) => {
                     
                     return <tr>
                             <td>{item.id}</td>
