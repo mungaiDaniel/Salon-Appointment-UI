@@ -56,22 +56,6 @@ function SelectDateDaypart({ classes , setDate, date, time, setTime, setService 
           </div>
       
       </Grid>
-      <Grid item xs={2}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 480 480"
-          className={classes.icon}
-        >
-        </svg>
-      </Grid>
-      <Grid item xs={10}>
-      <Typography variant="h5" color="primary" style={{marginRight: "370px", marginBottom:"20px"}} >
-          Time
-        </Typography>
-        <div className="form-input">
-                    <input className = "form-input__text form-control" type="time" value={time} onChange={(e) => setTime(e.target.value)}/>
-                </div>
-      </Grid>
     </Grid>
   );
 }

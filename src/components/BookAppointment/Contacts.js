@@ -15,7 +15,7 @@ const style = theme => {
   };
 };
 
-const Contacts = ({ classes, employee_id, service_id, date, time , employee, service}) => {
+const Contacts = ({ classes, employee_id, service_id, date, employee, service}) => {
   // const [bookings, setBookings] = useState([])
 
   // useEffect(() =>{
@@ -37,7 +37,6 @@ const Contacts = ({ classes, employee_id, service_id, date, time , employee, ser
   <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Assisstance:</h4>{employee.firstName}</li>
   <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Service:</h4>{service.style} </li>
   <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Date:</h4>{date}</li>
-  <li class="list-group-item list-group-item-primary d-flex"><h4 className="mx-4" >Time:</h4>{time}</li>
   
         </ul>
     

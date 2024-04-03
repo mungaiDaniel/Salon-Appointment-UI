@@ -69,7 +69,7 @@ const style = theme => {
 
 const NewBookings = () => {
   return (
-    <div className='bg-light  '>
+    <div className='bg-light  '> New bookings
       {/* <Box className='m-5'>
          <Typography variant='h5' color='warning' align='center' > 
             New bookings
