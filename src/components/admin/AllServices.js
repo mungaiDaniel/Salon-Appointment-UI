@@ -10,7 +10,7 @@ const AllServices = () => {
     const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
-        axios.get("https://salon-appointment.onrender.com/api/v1/stylings")
+        axios.get("http://127.0.0.1:5000/api/v1/stylings")
         .then((response) =>{
             setServices(response.data)
             setIsLoading(false)

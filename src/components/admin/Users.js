@@ -12,7 +12,7 @@ const Users = () => {
     const [success, setSuccess] = useState('')
 
     useEffect(() => {
-        axios.get("https://salon-appointment.onrender.com/api/v1/users")
+        axios.get("http://127.0.0.1:5000/api/v1/users")
         .then((response) =>{
             setServices(response.data)
             setIsLoading(false)
@@ -24,7 +24,7 @@ const Users = () => {
     }
 
     const MakesuperAdmin = (e) =>{
-        axios.put("https://salon-appointment.onrender.com/api/v1/" + e.target.value)
+        axios.put("http://127.0.0.1:5000/api/v1/" + e.target.value)
         .then((res) =>{
             setSuperAdmin(res.data)
             setSuccess('Successfully Updated')

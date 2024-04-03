@@ -54,18 +54,16 @@ const style = theme => ({
     const [service_id, setService_id] = useState("")
     const [service, setService] = useState("")
     const [date, setDate] = useState("")
-    const [time, setTime] = useState("")
     
     const BookAppointment = async () => {
 
       console.log(
-        employee_id, service_id, date, time
+        employee_id, service_id, date
       )
-      const resp = await httpClient.post("https://salon-appointment.onrender.com/api/v1/booking", {
+      const resp = await httpClient.post("http://127.0.0.1:5000/api/v1/booking", {
         employee_id,
         service_id,
         date,
-        time,
       },
       {
         
@@ -105,8 +103,8 @@ const style = theme => ({
           <SwipeableViews index={activeStep} onChangeIndex={handleChange}>
             <RadioMaster setEmployee_id={setEmployee_id} setEmployee={setEmployee}/>
             <SelectServices setService_id={setService_id} setService={setService}/>
-            <SelectDateDaypart date={date} setDate={setDate} time={time} setTime={setTime}/>
-          <Contacts employee_id={employee_id} service_id={service_id} date={date} time={time}  employee={employee} service={service}/>
+            <SelectDateDaypart date={date} setDate={setDate}/>
+          <Contacts employee_id={employee_id} service_id={service_id} date={date} employee={employee} service={service}/>
           </SwipeableViews>
           <Grid
             container

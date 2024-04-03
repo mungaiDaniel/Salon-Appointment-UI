@@ -25,7 +25,7 @@ const Services = () => {
           <div className="row">
            <div className="col-12 text-center">
             <h2 className="section-services">Our Services</h2>
-            <p className='text-success shadow p-3 mb-5 bg-white rounded'>Select service below for full description and pricing</p>
+            <p className='text-success shadow p-3 mb-5 bg-white rounded'>Click services below for full description and pricing</p>
            </div> 
           </div>
         </div>
