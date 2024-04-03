@@ -60,7 +60,7 @@ const style = theme => ({
       console.log(
         employee_id, service_id, date
       )
-      const resp = await httpClient.post("http://127.0.0.1:5000/api/v1/booking", {
+      const resp = await httpClient.post("https://salon-appointment-api.onrender.com/api/v1/booking", {
         employee_id,
         service_id,
         date,
