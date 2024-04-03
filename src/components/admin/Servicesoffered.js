@@ -57,7 +57,7 @@ const Servicesoffered = () => {
   const AddService = async () => {
     console.log(style, cost, duration, description);
 
-    const resp = await httpClient.post("http://127.0.0.1:5000/api/v1/stylings", {
+    const resp = await httpClient.post("https://salon-appointment-api.onrender.com/api/v1/stylings", {
       style,
       cost,
       duration,
