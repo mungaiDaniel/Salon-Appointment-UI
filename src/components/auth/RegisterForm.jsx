@@ -44,7 +44,7 @@ const RegisterForm = () => {
   const RegisterUser = async  () => {
     console.log(lastName, firstName, email, password, location, phoneNumber);
 
-    const resp = await httpClient.post("http://127.0.0.1:5000/api/v1/users", {
+    const resp = await httpClient.post("https://salon-appointment-api.onrender.com/api/v1/users", {
       firstName,
       lastName,
       email,
@@ -94,7 +94,23 @@ const RegisterForm = () => {
               required
             />
           </Stack>
+          <Stack
+            spacing={3}
+            component={motion.div}
+            initial={{ opacity: 0, y: 40 }}
+            animate={animate}
+          >
+            <TextField
+              fullWidth
+              autoComplete="username"
+              type="email"
+              label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
 
+            />
+            </Stack>
         
             <Stack
             spacing={3}
@@ -130,23 +146,7 @@ const RegisterForm = () => {
               }}
             />
           </Stack>
-          <Stack
-            spacing={3}
-            component={motion.div}
-            initial={{ opacity: 0, y: 40 }}
-            animate={animate}
-          >
-            <TextField
-              fullWidth
-              autoComplete="username"
-              type="email"
-              label="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-
-            />
-            </Stack>
+          
           <Stack
             component={motion.div}
             initial={{ opacity: 0, y: 60 }}
