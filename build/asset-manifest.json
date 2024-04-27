@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/Salon-Appointment/static/css/main.634fc34f.css",
+    "main.js": "/Salon-Appointment/static/js/main.c945d254.js",
+    "static/js/787.144e820f.chunk.js": "/Salon-Appointment/static/js/787.144e820f.chunk.js",
+    "static/media/portrait.jpg": "/Salon-Appointment/static/media/portrait.dae1553917678f9cb1f4.jpg",
+    "static/media/pedicurist.jpg": "/Salon-Appointment/static/media/pedicurist.9574416ca14945d5fb22.jpg",
+    "static/media/girl.jpg": "/Salon-Appointment/static/media/girl.0671c8a5191828b78d7a.jpg",
+    "static/media/hairdress.jpg": "/Salon-Appointment/static/media/hairdress.e3291a66c94abdbf4416.jpg",
+    "static/media/female.jpg": "/Salon-Appointment/static/media/female.442b7b9184ef6cbd40ca.jpg",
+    "static/media/hairdresser.jpg": "/Salon-Appointment/static/media/hairdresser.442b7b9184ef6cbd40ca.jpg",
+    "static/media/manicurist.jpg": "/Salon-Appointment/static/media/manicurist.d5afc54bb3a92a9cf0e4.jpg",
+    "static/media/dyeing.jpg": "/Salon-Appointment/static/media/dyeing.eee8b22ab8320d630123.jpg",
+    "static/media/womanget.jpg": "/Salon-Appointment/static/media/womanget.d530329be300fbc2d663.jpg",
+    "static/media/beautiful.jpg": "/Salon-Appointment/static/media/beautiful.ef00125887c5ee3c91a9.jpg",
+    "static/media/map1.jpg": "/Salon-Appointment/static/media/map1.3c96e20a2d3514156498.jpg",
+    "static/media/fontawesome-webfont.svg?v=4.7.0": "/Salon-Appointment/static/media/fontawesome-webfont.c1e38fd9e0e74ba58f7a.svg",
+    "static/media/fontawesome-webfont.eot": "/Salon-Appointment/static/media/fontawesome-webfont.8b43027f47b20503057d.eot",
+    "static/media/fontawesome-webfont.ttf?v=4.7.0": "/Salon-Appointment/static/media/fontawesome-webfont.1e59d2330b4c6deb84b3.ttf",
+    "static/media/fontawesome-webfont.woff?v=4.7.0": "/Salon-Appointment/static/media/fontawesome-webfont.f691f37e57f04c152e23.woff",
+    "static/media/fontawesome-webfont.woff2?v=4.7.0": "/Salon-Appointment/static/media/fontawesome-webfont.20fd1704ea223900efa9.woff2",
+    "static/media/pedicure.png": "/Salon-Appointment/static/media/pedicure.86cca195e5918c2faa44.png",
+    "static/media/manicure.png": "/Salon-Appointment/static/media/manicure.09bdec8ed6fca7eff738.png",
+    "index.html": "/Salon-Appointment/index.html",
+    "main.634fc34f.css.map": "/Salon-Appointment/static/css/main.634fc34f.css.map",
+    "main.c945d254.js.map": "/Salon-Appointment/static/js/main.c945d254.js.map",
+    "787.144e820f.chunk.js.map": "/Salon-Appointment/static/js/787.144e820f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.634fc34f.css",
+    "static/js/main.c945d254.js"
+  ]
+}
