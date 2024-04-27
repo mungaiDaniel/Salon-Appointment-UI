@@ -94,7 +94,23 @@ const RegisterForm = () => {
               required
             />
           </Stack>
+          <Stack
+            spacing={3}
+            component={motion.div}
+            initial={{ opacity: 0, y: 40 }}
+            animate={animate}
+          >
+            <TextField
+              fullWidth
+              autoComplete="username"
+              type="email"
+              label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
 
+            />
+            </Stack>
         
             <Stack
             spacing={3}
@@ -130,23 +146,7 @@ const RegisterForm = () => {
               }}
             />
           </Stack>
-          <Stack
-            spacing={3}
-            component={motion.div}
-            initial={{ opacity: 0, y: 40 }}
-            animate={animate}
-          >
-            <TextField
-              fullWidth
-              autoComplete="username"
-              type="email"
-              label="Email address"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-
-            />
-            </Stack>
+          
           <Stack
             component={motion.div}
             initial={{ opacity: 0, y: 60 }}
