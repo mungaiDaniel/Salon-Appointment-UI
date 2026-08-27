@@ -1,71 +1,61 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import { withStyles, FormControlLabel, Grid, Switch } from "@material-ui/core";
-import axios from "axios";
+import { FormControlLabel, Grid, Switch } from "@mui/material";
+import httpClient from "../../httpClient";
 
-const style = theme => ({
-  root: {
-    padding: 8,
-    height: "100%",
-    alignItems: "center",
-    maxWidth: 400,
-    margin: " 0 auto"
-  },
-  row: { borderBottom: `1px solid ${theme.palette.grey[100]}` },
-  icon: {
-    fill: theme.palette.grey[700],
-    width: 28,
-    height: 28
-  }
-});
-const SelectService = ({ classes, setService_id, setService }) => {
+const SelectService = ({ setService_id, setService }) => {
+  const [services, setServices] = useState([]);
+  const [serviceSelected, setServiceSelected] = useState({});
 
-  const [services, setServices] = useState([])
-  const getInitialState = () => {
-      return services.reduce((obj, item) => {
-      obj[item.id] = false;
-      return obj;
-    }, {});
-};
-  const [serviceSelected, setServiceSelected] = useState(getInitialState());
-  const handleChange = (id, service) => e => {
-    setServiceSelected({ ...serviceSelected, [id]: e.target.checked });
-    setService_id(e.target.value)
-    setService(service)
-  }
-   
-
-  const textSelected = Object.keys(serviceSelected)
-    .filter(key => serviceSelected[key])
-    .join(", ");
+  const handleChange = (service) => (e) => {
+    setServiceSelected({ [service.id]: e.target.checked });
+    if (setService_id) {
+      setService_id(service.id);
+    }
+    if (setService) {
+      setService(service);
+    }
+  };
 
   useEffect(() => {
-    axios.get("https://salon-appointment-api.onrender.com/api/v1/stylings")
-    .then((response) => {
-      setServices(response.data)
-    })
-  }, [])
+    httpClient.get("/stylings")
+      .then((response) => {
+        setServices(response.data || []);
+      })
+      .catch((err) => {
+        console.error("Error fetching services:", err);
+      });
+  }, []);
 
   return (
     <Grid
       container
-      className={classes.root}
-      style={{justifyContent:"center", fontSize: '0.8rem'}}
-      alignItems="center"
+      sx={{
+        padding: 1,
+        height: "100%",
+        alignItems: "center",
+        maxWidth: 400,
+        margin: "0 auto",
+        justifyContent: "center",
+        fontSize: "0.8rem",
+      }}
       spacing={0}
-      
     >
-      {services.map((service, i) => (
+      {services.map((service) => (
         <Grid
           item
           key={service.id}
           container
           justifyContent="space-between"
           alignItems="center"
-          className={classes.row}
+          sx={{ borderBottom: "1px solid", borderColor: "grey.200", py: 1 }}
         >
           <svg
-            className={classes.icon}
+            style={{
+              fill: "currentColor",
+              width: 28,
+              height: 28,
+            }}
             xmlns="http://www.w3.org/2000/svg"
           >
             {service.iconPath}
@@ -73,29 +63,24 @@ const SelectService = ({ classes, setService_id, setService }) => {
           <FormControlLabel
             control={
               <Switch
-                onChange={handleChange(service.id, service)}
+                onChange={handleChange(service)}
                 value={service.id}
                 color="primary"
+                checked={Boolean(serviceSelected[service.id])}
               />
             }
             label={service.style}
-            checked={serviceSelected[service.id]}
             labelPlacement="start"
           />
         </Grid>
       ))}
-      <input
-        type="text"
-        value={textSelected}
-        name="selected services"
-        style={{ width: 1, height: 1, opacity: 0.1 }}
-        readOnly
-      />
     </Grid>
   );
 };
 
 SelectService.propTypes = {
-  classes: PropTypes.object
+  setService_id: PropTypes.func,
+  setService: PropTypes.func,
 };
-export default withStyles(style)(SelectService);
+
+export default SelectService;
