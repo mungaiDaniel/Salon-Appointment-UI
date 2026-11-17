@@ -1,70 +1,150 @@
-# Getting Started with Create React App
+# Salon Gerente - Salon Appointment Booking UI
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern web application for salon appointment scheduling and management built with React 18, Material-UI (MUI v5), Bootstrap 5, and Framer Motion.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Overview](#overview)
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Environment Configuration](#environment-configuration)
+- [Running Locally](#running-locally)
+- [Running Tests](#running-tests)
+- [Building for Production](#building-for-production)
+- [Architecture & Directory Structure](#architecture--directory-structure)
+- [API Integration](#api-integration)
+- [CI/CD Pipeline](#cicd-pipeline)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Overview
 
-### `npm test`
+**Salon Gerente** allows customers to discover salon services, select stylists/specialists, choose appointment dates, and submit booking requests seamlessly. The platform also includes an administrative dashboard for managing registered users, service offerings, and appointment statuses.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Key Features
+- **Client Booking Flow**: Multi-step booking wizard guiding users through stylist selection, styling service choice, date selection, and appointment confirmation.
+- **Authentication**: User registration and login flows with JWT token management and role-based views.
+- **Admin Dashboard**: Panel for managing services, viewing client records, updating staff assignments, and promoting user privileges.
+- **Responsive UI**: Built with MUI v5 components and Bootstrap for smooth mobile and desktop browsing.
 
-### `npm run build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Prerequisites
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Node.js**: `v18.x` or higher (tested on Node 18, 20, 24)
+- **npm**: `v8.x` or higher
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+## Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Clone the repository and install dependencies:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+git clone https://github.com/mungaiDaniel/Salon-Appointment-UI.git
+cd Salon-Appointment-UI
+npm install --legacy-peer-deps
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+For reproducible clean installs in CI environments:
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+npm ci --legacy-peer-deps
+```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Environment Configuration
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The application uses environment variables prefixed with `REACT_APP_` for backend connectivity.
 
-### Code Splitting
+1. Copy the sample environment file:
+   ```bash
+   cp .env.example .env
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Available environment variables:
 
-### Analyzing the Bundle Size
+| Variable | Description | Default / Fallback |
+| :--- | :--- | :--- |
+| `REACT_APP_API_URL` | Base URL for backend REST API endpoints | `https://salon-appointment-api.onrender.com/api/v1` |
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+---
 
-### Making a Progressive Web App
+## Running Locally
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Start the development server:
 
-### Advanced Configuration
+```bash
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Opens [http://localhost:3000](http://localhost:3000) automatically in your browser. The page reloads on code edits.
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Running Tests
 
-### `npm run build` fails to minify
+Run unit and integration test suites:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+```bash
+npm test -- --watchAll=false
+```
+
+Run tests with test coverage reporting:
+
+```bash
+npm test -- --coverage --watchAll=false
+```
+
+---
+
+## Building for Production
+
+Create an optimized production bundle in the `build/` directory:
+
+```bash
+npm run build
+```
+
+---
+
+## Architecture & Directory Structure
+
+```text
+src/
+├── components/
+│   ├── admin/               # Admin panel (Users, Bookings, Services, Staff)
+│   ├── auth/                # Authentication forms (LoginForm, RegisterForm)
+│   ├── BookAppointment/    # Multi-step booking wizard (Master, Service, Date, Summary)
+│   ├── home/                # Landing page hero and imagery
+│   ├── styles/              # SCSS style definitions
+│   ├── Footer.js            # Footer component
+│   ├── MainContent.js       # Main landing page coordinator
+│   └── NavBar.js            # Navigation bar with responsive menu & auth state
+├── httpClient.js            # Centralized Axios instance with environment fallback
+├── App.js                   # Top-level routing & layout structure
+├── index.js                 # React DOM entrypoint & Bootstrap loading
+└── setupTests.js            # Test setup and jest-dom matchers
+```
+
+---
+
+## API Integration
+
+All API calls are centralized through [src/httpClient.js](src/httpClient.js). This guarantees:
+- Base URL is configured dynamically via `process.env.REACT_APP_API_URL` with a fallback to the remote service.
+- Standardized request credentials (`withCredentials: true`).
+- Relative endpoint paths (`/login`, `/users`, `/booking`, `/employees`, `/stylings`).
+
+---
+
+## CI/CD Pipeline
+
+Automated checks run on every push and pull request via GitHub Actions ([.github/workflows/ci.yml](.github/workflows/ci.yml)):
+- **Lint**: Validates JavaScript/JSX syntax with `npx eslint src --max-warnings=0`.
+- **Test**: Executes test suites with full coverage reporting.
+- **Build**: Compiles production bundle to prevent regressions.
+- **Dependabot**: Automated weekly dependency checks configured in [.github/dependabot.yml](.github/dependabot.yml).

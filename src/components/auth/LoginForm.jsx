@@ -16,7 +16,7 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import httpClient from "../../httpClient";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -30,42 +30,42 @@ const animate = {
 };
 
 
+export const loginUserRequest = async (email, password) => {
+  return await httpClient.post("/login", {
+    email,
+    password,
+  });
+};
+
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  const navigate = useNavigate()
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
   const LoginUser = async () => {
-    console.log(email, password);
-
-     await axios
-    .post("https://salon-appointment-api.onrender.com/api/v1/login", {
-      email,
-      password,
-    })
-    .then((res) =>{
-     localStorage.setItem("user_role", res.data.value.user_role)
-     localStorage.setItem("access_token", res.data.value.access_token)
-     setSuccess('successfully login')
-     setTimeout(() => {
-      setSuccess('')
-     }, 4000)
-     navigate('/')
-        })
-    .catch((err) => {
-
-      console.log(err)
-      setError('Wrong password or email credentials')
-              setTimeout(() =>{
-                setError('')
-              }, 4000)
-    })
-
-  }
+    try {
+      const res = await loginUserRequest(email, password);
+      if (res && res.data && res.data.value) {
+        localStorage.setItem("user_role", res.data.value.user_role);
+        localStorage.setItem("access_token", res.data.value.access_token);
+      }
+      setSuccess('successfully login');
+      setTimeout(() => {
+        setSuccess('');
+      }, 4000);
+      navigate('/');
+    } catch (err) {
+      console.log(err);
+      setError('Wrong password or email credentials');
+      setTimeout(() => {
+        setError('');
+      }, 4000);
+    }
+  };
 
   return (
     <Container>

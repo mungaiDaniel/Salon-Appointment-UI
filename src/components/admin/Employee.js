@@ -1,65 +1,68 @@
-import axios from 'axios'
-import React, {useState, useEffect} from 'react'
-import { Table } from 'react-bootstrap'
-
-
+import React, { useState, useEffect } from 'react';
+import { Table } from 'react-bootstrap';
+import httpClient from '../../httpClient';
 
 const Employee = () => {
-
-  const [services, setServices] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-      axios.get("https://salon-appointment-api.onrender.com/api/v1/employees")
-      .then((response) =>{
-          setServices(response.data)
-          setIsLoading(false)
-      } )
-  }, [] )
-  if (isLoading){
-      return <h2>Loading....</h2>
+    httpClient
+      .get("/employees")
+      .then((response) => {
+        setServices(response.data || []);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching employees:", err);
+        setIsLoading(false);
+      });
+  }, []);
+
+  if (isLoading) {
+    return <h2>Loading....</h2>;
   }
 
-return (
-  <div className=" p-5 p-lg-0 pt-lg-5 text-center text-sm-start " style={{
-    overflow: "auto",
-    whiteSpace: "nowrap"
-}} >
-      <h2 className='text-primary'>Assisstance</h2>
-      <br/>
+  return (
+    <div
+      className="p-5 p-lg-0 pt-lg-5 text-center text-sm-start"
+      style={{
+        overflow: "auto",
+        whiteSpace: "nowrap",
+      }}
+    >
+      <h2 className="text-primary">Assistance</h2>
+      <br />
       <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>First Name</th>
-                    <th>Second Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Location</th>
-                    <th>Status</th>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Second Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Location</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {services.map((item) => {
+            return (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.firstName}</td>
+                <td>{item.lastName}</td>
+                <td>{item.email}</td>
+                <td>{item.phoneNumber}</td>
+                <td>{item.location}</td>
+                <td>{item.user_role}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </div>
+  );
+};
 
-                </tr>
-            </thead>
-            <tbody>
-            {
-                services.map(item => {
-                    
-                    return <tr>
-                            <td>{item.id}</td>
-                            <td>{item.firstName}</td>
-                            <td>{item.lastName}</td>
-                            <td>{item.email}</td>
-                            <td>{item.phoneNumber}</td>
-                            <td>{item.location}</td>
-                            <td>{item.user_role}</td>
-                        </tr>
-                   
-                })
-            }
-            </tbody>
-        </Table>
-  </div>
-)
-}
-
-export default Employee
+export default Employee;
