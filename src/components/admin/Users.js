@@ -28,8 +28,9 @@ const Users = () => {
   }
 
   const MakesuperAdmin = (e) => {
+    if (e.target.value === "0") return;
     httpClient
-      .put("/" + e.target.value)
+      .put(`/${e.target.value}`)
       .then((res) => {
         setSuperAdmin(res.data);
         setSuccess('Successfully Updated');
@@ -92,8 +93,8 @@ const Users = () => {
                     defaultValue="0"
                   >
                     <option value="0">--select user role--</option>
-                    <option value={item.id}>super_admin</option>
-                    <option value={item.id}>admin</option>
+                    <option value={`super_admin/${item.id}`}>super_admin</option>
+                    <option value={`admin/${item.id}`}>admin</option>
                   </Form.Select>
                 </td>
               </tr>
