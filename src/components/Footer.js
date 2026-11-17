@@ -29,7 +29,7 @@ const Footer = () => {
               <i className="fa fa-github white-text mr-4"> </i>
             </a>
 
-            <a className="li-ic m-2" href="www.linkedin.com/in/daniel-mungai-7a52451b8"
+            <a className="li-ic m-2" href="https://www.linkedin.com/in/daniel-mungai-7a52451b8"
                 target="_blank" rel="noopener noreferrer">
               <i className="fa fa-linkedin white-text mr-4"> </i>
             </a>
