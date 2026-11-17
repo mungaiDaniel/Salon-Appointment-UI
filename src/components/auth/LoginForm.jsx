@@ -4,6 +4,7 @@ import { Link as RouterLink, useNavigate} from "react-router-dom";
 import {
   FormControl,
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -17,6 +18,7 @@ import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import httpClient from "../../httpClient";
+import { isDemoMode, DEMO_ACCOUNTS } from "../../demo";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -46,9 +48,12 @@ const LoginForm = () => {
   const [success, setSuccess] = useState('');
   const navigate = useNavigate();
 
-  const LoginUser = async () => {
+  const LoginUser = async (overrideEmail) => {
     try {
-      const res = await loginUserRequest(email, password);
+      const res = await loginUserRequest(
+        typeof overrideEmail === "string" ? overrideEmail : email,
+        password
+      );
       if (res && res.data && res.data.value) {
         localStorage.setItem("user_role", res.data.value.user_role);
         localStorage.setItem("access_token", res.data.value.access_token);
@@ -169,6 +174,25 @@ const LoginForm = () => {
 </Alert> }
               Login
             </LoadingButton>
+            {isDemoMode() && (
+              <Stack spacing={1} sx={{ mt: 2 }}>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  onClick={() => LoginUser(DEMO_ACCOUNTS.user)}
+                >
+                  Try Demo
+                </Button>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => LoginUser(DEMO_ACCOUNTS.admin)}
+                >
+                  Try Demo as Admin
+                </Button>
+              </Stack>
+            )}
             { error && <Alert severity="error">
   <AlertTitle>Error</AlertTitle>
   <strong>{ error } </strong>

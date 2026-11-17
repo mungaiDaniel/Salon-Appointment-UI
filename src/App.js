@@ -14,6 +14,8 @@ import Users from './components/admin/Users';
 import Servicesoffered from './components/admin/Servicesoffered';
 import Bookings from './components/admin/Bookings';
 import Employee from './components/admin/Employee';
+import DemoBanner from './components/DemoBanner';
+import { isDemoMode } from './demo';
 
 function App() {
   const location = useLocation();
@@ -21,6 +23,7 @@ function App() {
 
   return (
     <div className="App">
+      {isDemoMode() && <DemoBanner />}
       {!isAdmin && <NavBar />}
       <Routes>
         <Route path="/" element={<MainContent />} />
