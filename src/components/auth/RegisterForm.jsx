@@ -26,9 +26,12 @@ const animate = {
   },
 };
 
-const RegisterForm = () => {
+export const registerUserRequest = async (userData) => {
+  return await httpClient.post("/users", userData);
+};
 
-  const navigate = useNavigate()
+const RegisterForm = () => {
+  const navigate = useNavigate();
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -38,33 +41,30 @@ const RegisterForm = () => {
   const [password, setPassword] = useState("");
   const [location, setLocation] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  const [error, setError] = useState('')
-  const [succes, setSuccess] = useState('')
+  const [error, setError] = useState('');
+  const [succes, setSuccess] = useState('');
 
-  const RegisterUser = async  () => {
-    console.log(lastName, firstName, email, password, location, phoneNumber);
-
-    const resp = await httpClient.post("https://salon-appointment-api.onrender.com/api/v1/users", {
-      firstName,
-      lastName,
-      email,
-      password,
-      location,
-      phoneNumber,
-    }).then((response) => {
-      setSuccess('Sussessful registered now you can login')
-      setTimeout(() =>{
-        setSuccess('')
-      }, 4000)
-
-      navigate('/login')
-    }).catch((err) =>{
-      console.log(err)
-      setError('Input error check again')
-              setTimeout(() =>{
-                setError('')
-              }, 4000)
-    })
+  const RegisterUser = async () => {
+    try {
+      await registerUserRequest({
+        firstName,
+        lastName,
+        email,
+        password,
+        location,
+        phoneNumber,
+      });
+      setSuccess('Sussessful registered now you can login');
+      setTimeout(() => {
+        setSuccess('');
+      }, 4000);
+      navigate('/login');
+    } catch (err) {
+      setError('Input error check again');
+      setTimeout(() => {
+        setError('');
+      }, 4000);
+    }
   };
 
   return (

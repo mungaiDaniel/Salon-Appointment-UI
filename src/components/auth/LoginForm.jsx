@@ -4,6 +4,7 @@ import { Link as RouterLink, useNavigate} from "react-router-dom";
 import {
   FormControl,
   Box,
+  Button,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -16,7 +17,8 @@ import {
 import { LoadingButton } from "@mui/lab";
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
-import axios from "axios";
+import httpClient from "../../httpClient";
+import { isDemoMode, DEMO_ACCOUNTS } from "../../demo";
 
 let easing = [0.6, -0.05, 0.01, 0.99];
 const animate = {
@@ -30,42 +32,44 @@ const animate = {
 };
 
 
+export const loginUserRequest = async (email, password) => {
+  return await httpClient.post("/login", {
+    email,
+    password,
+  });
+};
+
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState('')
-  const [success, setSuccess] = useState('')
-  const navigate = useNavigate()
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
+  const navigate = useNavigate();
 
-  const LoginUser = async () => {
-    console.log(email, password);
-
-     await axios
-    .post("https://salon-appointment-api.onrender.com/api/v1/login", {
-      email,
-      password,
-    })
-    .then((res) =>{
-     localStorage.setItem("user_role", res.data.value.user_role)
-     localStorage.setItem("access_token", res.data.value.access_token)
-     setSuccess('successfully login')
-     setTimeout(() => {
-      setSuccess('')
-     }, 4000)
-     navigate('/')
-        })
-    .catch((err) => {
-
-      console.log(err)
-      setError('Wrong password or email credentials')
-              setTimeout(() =>{
-                setError('')
-              }, 4000)
-    })
-
-  }
+  const LoginUser = async (overrideEmail) => {
+    try {
+      const res = await loginUserRequest(
+        typeof overrideEmail === "string" ? overrideEmail : email,
+        password
+      );
+      if (res && res.data && res.data.value) {
+        localStorage.setItem("user_role", res.data.value.user_role);
+        localStorage.setItem("access_token", res.data.value.access_token);
+      }
+      setSuccess('successfully login');
+      setTimeout(() => {
+        setSuccess('');
+      }, 4000);
+      navigate('/');
+    } catch (err) {
+      setError('Wrong password or email credentials');
+      setTimeout(() => {
+        setError('');
+      }, 4000);
+    }
+  };
 
   return (
     <Container>
@@ -170,6 +174,25 @@ const LoginForm = () => {
 </Alert> }
               Login
             </LoadingButton>
+            {isDemoMode() && (
+              <Stack spacing={1} sx={{ mt: 2 }}>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  onClick={() => LoginUser(DEMO_ACCOUNTS.user)}
+                >
+                  Try Demo
+                </Button>
+                <Button
+                  fullWidth
+                  variant="outlined"
+                  color="secondary"
+                  onClick={() => LoginUser(DEMO_ACCOUNTS.admin)}
+                >
+                  Try Demo as Admin
+                </Button>
+              </Stack>
+            )}
             { error && <Alert severity="error">
   <AlertTitle>Error</AlertTitle>
   <strong>{ error } </strong>

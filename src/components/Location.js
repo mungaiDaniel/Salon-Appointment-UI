@@ -1,4 +1,3 @@
-import { Button } from 'react-bootstrap';
 import './styles/Location.scss';
 import map1 from './Img/map1.jpg'
 const Location = () => {

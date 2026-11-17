@@ -1,9 +1,8 @@
-import * as React from 'react';
+import React, { useState } from 'react';
 import Input from '@mui/material/Input';
-import {  styled } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import { Stack } from '@mui/material';
-import { Typography} from '@material-ui/core';
+import { Stack, Typography, Alert, AlertTitle } from '@mui/material';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
 import { motion } from "framer-motion";
@@ -12,11 +11,6 @@ import InputAdornment from '@mui/material/InputAdornment';
 import { LoadingButton } from "@mui/lab";
 import httpClient from '../../httpClient';
 import AllServices from './AllServices';
-import { useState } from "react";
-import { Alert, AlertTitle } from '@mui/material';
-
-
-
 
 const ValidationTextField = styled(TextField)({
   '& input:valid + fieldset': {
@@ -29,7 +23,7 @@ const ValidationTextField = styled(TextField)({
   },
   '& input:valid:focus + fieldset': {
     borderLeftWidth: 6,
-    padding: '4px !important', // override inline-style
+    padding: '4px !important',
   },
 });
 
@@ -44,164 +38,151 @@ const animate = {
   },
 };
 
-
 const Servicesoffered = () => {
-
-  const [style, setStyle] = React.useState("")
-  const [cost, setCost] = React.useState("")
-  const [duration, setDuration] = React.useState("")
-  const [description, setDescription] = React.useState("")
-  const [error, setError] = useState('')
-
+  const [style, setStyle] = useState("");
+  const [cost, setCost] = useState("");
+  const [duration, setDuration] = useState("");
+  const [description, setDescription] = useState("");
+  const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
 
   const AddService = async () => {
-    console.log(style, cost, duration, description);
-
-    const resp = await httpClient.post("https://salon-appointment-api.onrender.com/api/v1/stylings", {
-      style,
-      cost,
-      duration,
-      description,
-    },
-    {
-      headers:
-      {
-          Authorization : `Bearer ${localStorage.getItem("access_token")}`
-      }
-    }
-    ).then((res) => {
-        if(res.resp.data){
-          window.alert('success')
+    try {
+      const token = localStorage.getItem("access_token");
+      await httpClient.post(
+        "/stylings",
+        {
+          style,
+          cost,
+          duration,
+          description,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-    }).catch((err) =>{
-      setError('NOT ADMIN')
-              setTimeout(() =>{
-                setError('')
-              }, 4000)
-    })
-    console.log(resp.data)
+      );
+      setSuccess('Service added successfully');
+      setTimeout(() => {
+        setSuccess('');
+      }, 4000);
+    } catch (err) {
+      setError('Failed to add service. Admin privileges required.');
+      setTimeout(() => {
+        setError('');
+      }, 4000);
+    }
   };
-
 
   return (
     <div className="app container">
-      <Typography gutterBottom variant='h5' className='py-4 text-primary'>
-          Add new services to our application
-        </Typography>
-   <Stack spacing={3}>
-   
-          <Stack
-            component={motion.div}
-            initial={{ opacity: 0, y: 60 }}
-            animate={animate}
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-          >
-            <Typography>
-          Styles
-        </Typography>
-              <ValidationTextField
-      variant="standard"
-      value={style}
-      onChange = {(e) => setStyle(e.target.value)}
-    />
-
-          </Stack>
-          
-          <Stack
-            component={motion.div}
-            initial={{ opacity: 0, y: 60 }}
-            animate={animate}
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-          >
-            <Typography>
-          Prizes
-        </Typography>
-        <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }}>
-          <Input
-            variant={"standard"}
-            value={cost}
-            onChange={(e)=> setCost(e.target.value)}
-            endAdornment={<InputAdornment position="end">ksh</InputAdornment>}
-            aria-describedby="standard-weight-helper-text"
+      <Typography gutterBottom variant="h5" className="py-4 text-primary">
+        Add new services to our application
+      </Typography>
+      <Stack spacing={3}>
+        <Stack
+          component={motion.div}
+          initial={{ opacity: 0, y: 60 }}
+          animate={animate}
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+        >
+          <Typography sx={{ minWidth: 80, alignSelf: "center" }}>Styles</Typography>
+          <ValidationTextField
+            variant="standard"
+            value={style}
+            onChange={(e) => setStyle(e.target.value)}
           />
-          <FormHelperText id="filled-weight-helper-text">cost </FormHelperText>
-        </FormControl>
-          </Stack>
-          <Stack
-            component={motion.div}
-            initial={{ opacity: 0, y: 60 }}
-            animate={animate}
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-          >
-            
-            <Typography>
-          Time.
-        </Typography>
-        <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }}>
-          <Input
-            value={duration}
-            onChange={(e) => setDuration(e.target.value)}
-            endAdornment={<InputAdornment position="end">hour</InputAdornment>}
-          />
-          <FormHelperText id="filled-weight-helper-text"> duration </FormHelperText>
-        </FormControl>
+        </Stack>
 
-          </Stack>
-          
-          <Stack
+        <Stack
+          component={motion.div}
+          initial={{ opacity: 0, y: 60 }}
+          animate={animate}
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+        >
+          <Typography sx={{ minWidth: 80, alignSelf: "center" }}>Prices</Typography>
+          <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }}>
+            <Input
+              value={cost}
+              onChange={(e) => setCost(e.target.value)}
+              endAdornment={<InputAdornment position="end">ksh</InputAdornment>}
+            />
+            <FormHelperText id="filled-weight-helper-text">cost </FormHelperText>
+          </FormControl>
+        </Stack>
 
-            component={motion.div}
-            initial={{ opacity: 0, y: 60 }}
-            animate={animate}
-            direction={{ xs: "column", sm: "row" }}
-            spacing={2}
-          >
-          
-            <Typography>
-          Detail
-        </Typography>
-        
-            
-            <TextField
+        <Stack
+          component={motion.div}
+          initial={{ opacity: 0, y: 60 }}
+          animate={animate}
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+        >
+          <Typography sx={{ minWidth: 80, alignSelf: "center" }}>Time</Typography>
+          <FormControl variant="standard" sx={{ m: 1, mt: 3, width: '25ch' }}>
+            <Input
+              value={duration}
+              onChange={(e) => setDuration(e.target.value)}
+              endAdornment={<InputAdornment position="end">hour</InputAdornment>}
+            />
+            <FormHelperText id="filled-weight-helper-text"> duration </FormHelperText>
+          </FormControl>
+        </Stack>
+
+        <Stack
+          component={motion.div}
+          initial={{ opacity: 0, y: 60 }}
+          animate={animate}
+          direction={{ xs: "column", sm: "row" }}
+          spacing={2}
+        >
+          <Typography sx={{ minWidth: 80, alignSelf: "center" }}>Detail</Typography>
+          <TextField
             value={description}
-            onChange={(e)=> setDescription(e.target.value)}
-          multiline
-          rows={5}
-          variant="standard"
-        />
+            onChange={(e) => setDescription(e.target.value)}
+            multiline
+            rows={5}
+            variant="standard"
+            fullWidth
+          />
+        </Stack>
 
-          </Stack>
-
-          <Box
-            component={motion.div}
-            initial={{ opacity: 0, y: 20 }}
-            animate={animate}
-            style={{marginBottom: "20px"}}
+        <Box
+          component={motion.div}
+          initial={{ opacity: 0, y: 20 }}
+          animate={animate}
+          style={{ marginBottom: "20px" }}
+        >
+          <LoadingButton
+            fullWidth
+            size="large"
+            type="submit"
+            variant="contained"
+            onClick={AddService}
           >
-            <LoadingButton
-              fullWidth
-              size="large"
-              type="submit"
-              variant="contained"
-              onClick={() => AddService()}
-            >
-              Add Service
-            </LoadingButton>
-          </Box>
-          { error && <Alert severity="error">
-  <AlertTitle>Error</AlertTitle>
-  <strong>{ error } </strong>
-</Alert> }
-          
-          
-  </Stack>
+            Add Service
+          </LoadingButton>
+        </Box>
+        {success && (
+          <Alert severity="success">
+            <AlertTitle>Success</AlertTitle>
+            <strong>{success}</strong>
+          </Alert>
+        )}
+        {error && (
+          <Alert severity="error">
+            <AlertTitle>Error</AlertTitle>
+            <strong>{error}</strong>
+          </Alert>
+        )}
+      </Stack>
 
-  <AllServices />
-  </div>
-  )
-}
+      <AllServices />
+    </div>
+  );
+};
 
-export default Servicesoffered
+export default Servicesoffered;

@@ -1,57 +1,58 @@
-import axios from 'axios'
-import React, {useState, useEffect} from 'react'
-import { Table } from 'react-bootstrap'
-
-
+import React, { useState, useEffect } from 'react';
+import { Table } from 'react-bootstrap';
+import httpClient from '../../httpClient';
 
 const AllServices = () => {
+  const [services, setServices] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-    const [services, setServices] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    httpClient
+      .get("/stylings")
+      .then((response) => {
+        setServices(response.data || []);
+        setIsLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching services:", err);
+        setIsLoading(false);
+      });
+  }, []);
 
-    useEffect(() => {
-        axios.get("https://salon-appointment-api.onrender.com/api/v1/stylings")
-        .then((response) =>{
-            setServices(response.data)
-            setIsLoading(false)
-        } )
-    }, [] )
-    if (isLoading){
-        return <h2>Loading....</h2>
-    }
+  if (isLoading) {
+    return <h2>Loading....</h2>;
+  }
 
   return (
     <div className="container m-5 align-items-center justify-content-between">
-        <h2 className='text-primary'>Services offered</h2>
-        <br/>
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <td>ID</td>
-                    <td>Style</td>
-                    <td>Description</td>
-                    <td>Duration</td>
-                    <td>Cost</td>
-                </tr>
-            </thead>
-            <tbody>
-            {
-                services.map((item, key) => {
-                    
-                    return <tr>
-                            <td>{item.id}</td>
-                            <td>{item.style}</td>
-                            <td>{item.description}</td>
-                            <td>{item.duration}</td>
-                            <td>{item.cost}</td>
-                        </tr>
-                   
-                })
-            }
-            </tbody>
-        </Table>
+      <h2 className="text-primary">Services offered</h2>
+      <br />
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Style</th>
+            <th>Description</th>
+            <th>Duration</th>
+            <th>Cost</th>
+          </tr>
+        </thead>
+        <tbody>
+          {services.map((item) => {
+            return (
+              <tr key={item.id}>
+                <td>{item.id}</td>
+                <td>{item.style}</td>
+                <td>{item.description}</td>
+                <td>{item.duration}</td>
+                <td>{item.cost}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
     </div>
-  )
-}
+  );
+};
 
-export default AllServices
+export default AllServices;
