@@ -60,7 +60,6 @@ const RegisterForm = () => {
       }, 4000);
       navigate('/login');
     } catch (err) {
-      console.log(err);
       setError('Input error check again');
       setTimeout(() => {
         setError('');

@@ -59,7 +59,6 @@ const LoginForm = () => {
       }, 4000);
       navigate('/');
     } catch (err) {
-      console.log(err);
       setError('Wrong password or email credentials');
       setTimeout(() => {
         setError('');

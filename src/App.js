@@ -7,57 +7,36 @@ import Footer from './components/Footer';
 import MainContent from './components/MainContent';
 import 'font-awesome/css/font-awesome.min.css';
 import React from 'react';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Book from './components/BookAppointment/Book';
 import Signup from './components/auth/Signup';
 import Users from './components/admin/Users';
 import Servicesoffered from './components/admin/Servicesoffered';
 import Bookings from './components/admin/Bookings';
 import Employee from './components/admin/Employee';
+
 function App() {
-
-
-  const location = useLocation()
-
-  const isAdmin = location.pathname === "/admin"
-  
+  const location = useLocation();
+  const isAdmin = location.pathname === "/admin";
 
   return (
     <div className="App">
-     { !isAdmin && <NavBar />}
-        <Routes>
-          <Route exact path="/" element={<MainContent/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/login" element={<Login/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/register" element={<Signup/>}/>
-        </Routes>
-        <Routes >
-          <Route exact path="/book" element={<Book/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/admin" element={<Navdrower/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/employee" element={<Book/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/users" element={<Users/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/services" element={<Servicesoffered/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/bookings" element={<Bookings/>}/>
-        </Routes>
-        <Routes>
-          <Route exact path="/assistance" element={<Employee/>}/>
-        </Routes>
-
+      {!isAdmin && <NavBar />}
+      <Routes>
+        <Route path="/" element={<MainContent />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Signup />} />
+        <Route path="/book" element={<Book />} />
+        <Route path="/admin" element={<Navdrower />} />
+        <Route path="/employee" element={<Book />} />
+        <Route path="/users" element={<Users />} />
+        <Route path="/services" element={<Servicesoffered />} />
+        <Route path="/bookings" element={<Bookings />} />
+        <Route path="/assistance" element={<Employee />} />
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
       <div className='footer'>
-      { !isAdmin && <Footer />}
+        {!isAdmin && <Footer />}
       </div>
     </div>
   );
